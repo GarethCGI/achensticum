@@ -1,0 +1,5 @@
+/* Reset every style */
+::root {
+	all: unset;
+}
+/* And continue from there */
