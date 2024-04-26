@@ -61,9 +61,6 @@ const resultCards = [
 const store = useStatisticsStore()
 const results = computed(() => store.getResultValues)
 
-onMounted(() => {
-	store.calculateResultValues()
-})
 </script>
 
 <template>

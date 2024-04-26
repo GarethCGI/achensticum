@@ -88,6 +88,8 @@ export const useStatisticsStore = defineStore("statistics", () => {
 	})
 
 	const calculateTable = () => {
+		tableColumns.value = [];
+
 		let start = Math.min(...initialData.value);
 		let end = start + classWidth.value - 1;
 		for (let i = 0; i < intervals.value; i++) {
