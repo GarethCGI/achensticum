@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { columns } from '@/lib/datatable';
 import { useStatisticsStore } from '@/stores/Statistics';
+import { useColorMode } from '@vueuse/core';
 import {
 	Chart as ChartJS,
 	Title,
@@ -24,6 +25,8 @@ const store = useStatisticsStore()
 
 const tableData = computed(() => store.getTable)
 
+const colorMode = useColorMode({deep: true})
+
 const data = computed(() => {
 	console.log(tableData.value)
 	return {
@@ -32,7 +35,7 @@ const data = computed(() => {
 			label: 'Frequency',
 			data: tableData.value.map((row) => row.frequency),
 			// Brilliant Purple
-			backgroundColor: 'rgba(159, 122, 234, 0.2)',
+			backgroundColor: colorMode.value === 'light' ? '#8A2BE2' : '#8A2BE2',
 		}]
 	}
 })

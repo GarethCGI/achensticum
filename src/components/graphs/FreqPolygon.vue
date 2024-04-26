@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
 import { useStatisticsStore } from '@/stores/Statistics';
+import { useColorMode } from '@vueuse/core';
 import {
 	Chart as ChartJS,
 	Title,
@@ -29,7 +30,10 @@ ChartJS.register(
 )
 const store = useStatisticsStore()
 
+
 const tableData = computed(() => store.getTable)
+
+const colorMode = useColorMode({ deep: true })
 
 const data = computed(() => {
 	console.log(tableData.value)
@@ -39,6 +43,8 @@ const data = computed(() => {
 			label: 'Frequency',
 			data: tableData.value.map((row) => row.frequency),
 			
+			backgroundColor: colorMode.value === 'light' ? '#8A2BE2' : '#8A2BE2',
+			borderColor: colorMode.value === 'light' ? '#8A2BE2' : '#8A2BE2',
 		}]
 	}
 })
