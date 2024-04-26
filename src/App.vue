@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import DarkMode from '@/components/DarkMode.vue';
 import Title from '@/components/visual/Title.vue';
+import StatisticTable from '@/components/StatisticTable.vue';
 import { ref } from 'vue';
 
 const input = ref('');
-
-
 </script>
 
 <template>
@@ -21,7 +20,7 @@ const input = ref('');
 		<div class="space-y-4">
 			<textarea v-model="input" class="w-full h-48 p-4 text-lg bg-gray-100 dark:bg-gray-800 rounded-lg"
 				style="resize: none;" placeholder="Introduce your number set here..."></textarea>
-				
+			<StatisticTable />
 		</div>
 	</div>
 </template>
