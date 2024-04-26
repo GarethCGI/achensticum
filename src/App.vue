@@ -27,7 +27,7 @@ const calculate = () => {
 </script>
 
 <template>
-	<div class="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+	<div class="h-full flex-1 flex-col space-y-8 p-8">
 		<div class="flex items-center justify-between space-y-2">
 			<div>
 				<Title />
@@ -42,7 +42,7 @@ const calculate = () => {
 			<Button @click="calculate">Calculate</Button>
 			<StatisticTable />
 			<Results />
-			<div class="flex flex-row space-x-4 md:flex-col md:space-x-0 md:space-y-4">
+			<div class="grid grid-cols-1 gap-4 xxl:grid-cols-2">
 				<Histogram />
 				<FreqPolygon />
 			</div>
