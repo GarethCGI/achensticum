@@ -5,7 +5,9 @@ export type TableMode = "ungrouped" | "grouped";
 
 interface BaseTableColumn {
 	frequency: number;
+	relativeFrequency: number;
 	acummulatedFrequency: number;
+	acummulatedRelativeFrequency: number;
 	classMark: number;
 
 	//Internal only
@@ -74,13 +76,13 @@ export const useStatisticsStore = defineStore("statistics", () => {
 	const intervals = computed(() => {
 		const data = initialData.value;
 		if (data.length === 0) return 0;
-		return 1 + 3.33 * Math.log10(data.length);
+		return Math.ceil(1 + 3.33 * Math.log10(data.length));
 	})
 
 	const classWidth = computed(() => {
 		const data = initialData.value;
 		if (data.length === 0) return 0;
-		return Math.ceil(range.value / intervals.value);
+		return Math.round(range.value / intervals.value);
 	})
 
 	const totalFrequency = computed(() => {
@@ -91,24 +93,39 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		tableColumns.value = [];
 
 		let start = Math.min(...initialData.value);
-		let end = start + classWidth.value - 1;
+		let end = start + (classWidth.value - 1);
 		for (let i = 0; i < intervals.value; i++) {
-			const frequency = initialData.value.filter(value => value >= start && value < end).length;
-			const acummulatedFrequency = initialData.value.filter(value => value < end).length;
+			let frequency = initialData.value.filter(value => value >= start && value <= end).length;
+			let acummulatedFrequency = initialData.value.filter(value => value <= end).length;
+			if (i == intervals.value - 1 && acummulatedFrequency < initialData.value.length) {
+				end = end + (initialData.value.length - acummulatedFrequency) + 1;
+				frequency = frequency + (initialData.value.length - acummulatedFrequency);
+				acummulatedFrequency = acummulatedFrequency + (initialData.value.length - acummulatedFrequency);
+			}
+			const relativeFrequency = (frequency * 100) / initialData.value.length;
+			const acummulatedRelativeFrequency = (acummulatedFrequency * 100) / initialData.value.length;
 			const classMark = (start + end) / 2;
+			
 
 			tableColumns.value.push({
 				interval: [start, end],
 				realLimits: [start - 0.5, end + 0.5],
 				frequency,
+				relativeFrequency,
 				acummulatedFrequency,
+				acummulatedRelativeFrequency,
 				classMark,
 				// Internal
 				fMark: frequency * classMark
 			})
 
 			start = end + 1;
-			end = start + classWidth.value - 1;
+			if (i == intervals.value - 1 && acummulatedFrequency < initialData.value.length) {
+				for (let j = 0; j <= 2; j++) {
+				}
+			} else {
+				end = start + (classWidth.value - 1);
+			}
 		}
 	}
 

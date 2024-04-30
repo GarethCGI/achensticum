@@ -4,15 +4,6 @@ import { h } from 'vue'
 
 export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	{
-		accessorKey: 'classMark',
-		header: () => h('div', { class: 'text-right' }, 'Class Mark'),
-		cell: ({ row }) => {
-			const amount = Number.parseFloat(row.getValue('classMark'))
-
-			return h('div', { class: 'text-right font-medium' }, amount.toFixed(2))
-		},
-	},
-	{
 		accessorKey: 'interval',
 		header: () => h('div', { class: 'text-right' }, 'Interval'),
 		cell: ({ row }) => {
@@ -48,4 +39,31 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 			return h('div', { class: 'text-right font-medium' }, amount.toFixed(2))
 		},
 	},
+	{
+		accessorKey: 'relativeFrequency',
+		header: () => h('div', { class: 'text-right' }, 'Relative Frequency'),
+		cell: ({ row }) => {
+			const amount = Number.parseFloat(row.getValue('relativeFrequency'))
+
+			return h('div', { class: 'text-right font-medium' }, `${amount.toFixed(2)} %`)
+		},
+	},
+	{
+		accessorKey: 'acummulatedRelativeFrequency',
+		header: () => h('div', { class: 'text-right' }, 'Acummulated Relative Frequency'),
+		cell: ({ row }) => {
+			const amount = Number.parseFloat(row.getValue('acummulatedRelativeFrequency'))
+
+			return h('div', { class: 'text-right font-medium' }, `${amount.toFixed(2)} %`)
+		},
+	},
+	{
+		accessorKey: 'classMark',
+		header: () => h('div', { class: 'text-right' }, 'Class Mark'),
+		cell: ({ row }) => {
+			const amount = Number.parseFloat(row.getValue('classMark'))
+
+			return h('div', { class: 'text-right font-medium' }, amount.toFixed(2))
+		},
+	}
 ]
