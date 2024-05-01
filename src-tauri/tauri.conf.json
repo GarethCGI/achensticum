@@ -1,7 +1,7 @@
 {
   "productName": "achensticum",
   "version": "0.0.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "xyz.ourspace.xdev.achensticum",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",

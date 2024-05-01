@@ -1,3 +1,3 @@
-package com.tauri.achensticum
+package xyz.ourspace.xdev.achensticum
 
 class MainActivity : TauriActivity()

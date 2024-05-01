@@ -6,10 +6,10 @@ plugins {
 
 android {
     compileSdk = 33
-    namespace = "com.tauri.achensticum"
+    namespace = "xyz.ourspace.xdev.achensticum"
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
-        applicationId = "com.tauri.achensticum"
+        applicationId = "xyz.ourspace.xdev.achensticum"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
