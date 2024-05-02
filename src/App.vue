@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Button } from '@/components/ui/button'
 import { useStatisticsStore } from '@/stores/Statistics';
 import DarkMode from '@/components/DarkMode.vue';
 import Title from '@/components/visual/Title.vue';
@@ -15,7 +14,7 @@ const input = ref('');
 const parsedInput = ref<number[]>([]);
 
 const parseInput = () => {
-	parsedInput.value = input.value.split(/[\s,]+/).map(Number).filter(n => !isNaN(n));
+	parsedInput.value = input.value.split(/[\s,]+/).map(parseFloat).filter(n => !isNaN(n));
 }
 
 const calculate = () => {

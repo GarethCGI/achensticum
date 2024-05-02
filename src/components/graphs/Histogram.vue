@@ -28,7 +28,6 @@ const tableData = computed(() => store.getTable)
 const colorMode = useColorMode({deep: true})
 
 const data = computed(() => {
-	console.log(tableData.value)
 	return {
 		labels: tableData.value.map((row) => row.classMark.toString()),
 		datasets: [{
