@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import { columns } from '@/lib/datatable';
 import { useStatisticsStore } from '@/stores/Statistics';
 import { useColorMode } from '@vueuse/core';
 import {

@@ -37,10 +37,12 @@ const calculate = () => {
 			<textarea v-model="input" class="w-full h-48 p-4 text-lg bg-gray-100 dark:bg-gray-800 rounded-lg"
 				style="resize: none;" placeholder="Introduce your number set here..." @input="calculate"></textarea>
 			<StatisticTable />
-			<Results />
-			<div class="grid grid-cols-1 gap-4 xxl:grid-cols-2">
-				<Histogram />
-				<FreqPolygon />
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+				<Results />
+				<div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4 h-full">
+					<Histogram />
+					<FreqPolygon />
+				</div>
 			</div>
 		</div>
 	</div>

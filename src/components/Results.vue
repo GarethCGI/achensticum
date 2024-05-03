@@ -2,13 +2,11 @@
 import {
 	Card,
 	CardContent,
-	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
 
-import { computed, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import { useStatisticsStore } from '@/stores/Statistics'
 
 const resultCards = [
@@ -65,7 +63,7 @@ const results = computed(() => store.getResultValues)
 
 <template>
 	<div class="container grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-		<Card v-for="card in resultCards" :key="card.accessKey" class="flex flex-col">
+		<Card v-for="card in resultCards" :key="card.accessKey" class="flex flex-col text-center">
 			<CardHeader>
 				<CardTitle>{{ card.name }}</CardTitle>
 				<!-- <CardDescription>Card Description</CardDescription> -->

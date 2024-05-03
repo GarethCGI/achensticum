@@ -110,48 +110,9 @@ export const useStatisticsStore = defineStore("statistics", () => {
 	})
 
 	const accumulatedFrequencies = computed(() => {
-		// Accumulated frequencies are the current index frequency plus the previous frequencies
 		return frequencies.value.map((_, i) => frequencies.value.slice(0, i + 1).reduce((acc, curr) => acc + curr, 0));
 	})
 
-	/* const calculateResultValues = () => {
-		// Calculate Table results
-		const average = tableColumns.value.map(column => column.fMark * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
-
-		const median = tableColumns.value[Math.floor(tableColumns.value.length / 2)].classMark;
-
-		const mode = tableColumns.value.reduce((acc, curr) => acc.frequency > curr.frequency ? acc : curr).classMark;
-
-		const variance = tableColumns.value.map(column => Math.pow(column.classMark - average, 2) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
-
-		const stdDeviation = Math.sqrt(variance);
-
-		const typicalDeviation = stdDeviation / average;
-
-		const quartile = tableColumns.value[Math.floor(tableColumns.value.length / 4)].classMark;
-
-		const decile = tableColumns.value[Math.floor(tableColumns.value.length / 10)].classMark;
-
-		const percentile = tableColumns.value[Math.floor(tableColumns.value.length / 100)].classMark;
-
-		const bias = (average - median) / stdDeviation;
-
-		const kurtosis = tableColumns.value.map(column => Math.pow(column.classMark - average, 4) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
-
-		resultValues.value = {
-			average,
-			median,
-			mode,
-			variance,
-			stdDeviation,
-			typicalDeviation,
-			quartile,
-			decile,
-			percentile,
-			bias,
-			kurtosis
-		}
-	} */
 
 	const setData = (data: number[]) => {
 		initialData.value = data;
@@ -164,12 +125,10 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		const columns: TableColumn<TableMode>[] = [];
 
 		for (let i = 0; i < intervalQuantity.value; i++) {
-			// Average between the previous end and the current start, and the current end and the next start
 			const [start, end] = limits.value[i];
 			const [realStart, realEnd] = realLimits.value[i];
 
 			const frequency = frequencies.value[i];
-			// Percent of the total frequency
 			const relativeFrequency = frequency / totalFrequency.value * 100;
 			const acummulatedFrequency = accumulatedFrequencies.value[i];
 			const acummulatedRelativeFrequency = acummulatedFrequency / totalFrequency.value * 100;
@@ -192,7 +151,8 @@ export const useStatisticsStore = defineStore("statistics", () => {
 	})
 
 	const getResultValues = computed(() => {
-		return {
+		const tableData = getTable.value;
+		if (tableData.length === 0) return {
 			median: 0,
 			mode: 0,
 			average: 0,
@@ -204,6 +164,32 @@ export const useStatisticsStore = defineStore("statistics", () => {
 			percentile: 0,
 			bias: 0,
 			kurtosis: 0,
+		} satisfies ResultValues;
+
+		const average = tableData.map(column => column.fMark).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
+		const median = tableData[Math.floor(tableData.length / 2)].classMark;
+		const mode = tableData.reduce((acc, curr) => acc.frequency > curr.frequency ? acc : curr).classMark;
+		const variance = tableData.map(column => Math.pow(column.classMark - average, 2) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
+		const stdDeviation = Math.sqrt(variance);
+		const typicalDeviation = stdDeviation / average;
+		const quartile = tableData[Math.floor(tableData.length / 4)].classMark;
+		const decile = tableData[Math.floor(tableData.length / 10)].classMark;
+		const percentile = tableData[Math.floor(tableData.length / 100)].classMark;
+		const bias = (average - median) / stdDeviation;
+		const kurtosis = tableData.map(column => Math.pow(column.classMark - average, 4) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
+
+		return {
+			median,
+			mode,
+			average,
+			stdDeviation: parseFloat(stdDeviation.toFixed(2)),
+			variance: parseFloat(variance.toFixed(2)),
+			typicalDeviation: parseFloat(typicalDeviation.toFixed(2)),
+			quartile,
+			decile,
+			percentile,
+			bias: parseFloat(bias.toFixed(2)),
+			kurtosis: parseFloat(kurtosis.toFixed(2))
 		} satisfies ResultValues;
 	})
 
