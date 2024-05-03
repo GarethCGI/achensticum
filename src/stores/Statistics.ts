@@ -158,6 +158,9 @@ export const useStatisticsStore = defineStore("statistics", () => {
 	}
 
 	const getTable = computed(() => {
+
+		if (range.value <= 2) return [];
+
 		const columns: TableColumn<TableMode>[] = [];
 
 		for (let i = 0; i < intervalQuantity.value; i++) {
