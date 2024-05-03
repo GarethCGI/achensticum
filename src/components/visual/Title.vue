@@ -69,11 +69,11 @@ const handleMouseMove = (event: MouseEvent) => {
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
-		<div class="mask bg-background" :class="{
+		<div class="mask dark:bg-background bg-white" :class="{
 			'left': position === POSITION.LEFT, 'right': position === POSITION.RIGHT
 		}">
 		</div>
-		<div class="diagonal dark:bg-white bg-black"
+		<div class="diagonal bg-black dark:bg-white"
 			:class="{ 'left-diagonal': position === POSITION.LEFT, 'right-diagonal': position === POSITION.RIGHT }">
 		</div>
 		<h2 class="text-2xl font-bold tracking-tight"
