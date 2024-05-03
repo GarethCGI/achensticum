@@ -31,21 +31,21 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 		},
 	},
 	{
-		accessorKey: 'acummulatedFrequency',
-		header: () => h('div', { class: 'text-right' }, 'Acummulated Frequency'),
-		cell: ({ row }) => {
-			const amount = Number.parseFloat(row.getValue('acummulatedFrequency'))
-
-			return h('div', { class: 'text-right font-medium' }, amount.toFixed(2))
-		},
-	},
-	{
 		accessorKey: 'relativeFrequency',
 		header: () => h('div', { class: 'text-right' }, 'Relative Frequency'),
 		cell: ({ row }) => {
 			const amount = Number.parseFloat(row.getValue('relativeFrequency'))
 
 			return h('div', { class: 'text-right font-medium' }, `${amount.toFixed(2)} %`)
+		},
+	},
+	{
+		accessorKey: 'acummulatedFrequency',
+		header: () => h('div', { class: 'text-right' }, 'Acummulated Frequency'),
+		cell: ({ row }) => {
+			const amount = Number.parseFloat(row.getValue('acummulatedFrequency'))
+
+			return h('div', { class: 'text-right font-medium' }, amount.toFixed(2))
 		},
 	},
 	{

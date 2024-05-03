@@ -52,20 +52,6 @@ export const useStatisticsStore = defineStore("statistics", () => {
 	const initialData = ref<number[]>([
 		...testData
 	]);
-	const tableColumns = ref<TableColumn<TableMode>[]>([])
-	const resultValues = ref<ResultValues>({
-		median: 0,
-		mode: 0,
-		average: 0,
-		stdDeviation: 0,
-		variance: 0,
-		typicalDeviation: 0,
-		quartile: 0,
-		decile: 0,
-		percentile: 0,
-		bias: 0,
-		kurtosis: 0,
-	})
 
 	const range = computed(() => {
 		const data = initialData.value;
@@ -73,7 +59,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		return Math.max(...data) - Math.min(...data);
 	})
 
-	const intervals = computed(() => {
+	const intervalQuantity = computed(() => {
 		const data = initialData.value;
 		if (data.length === 0) return 0;
 		return Math.ceil(1 + 3.33 * Math.log10(data.length));
@@ -82,54 +68,53 @@ export const useStatisticsStore = defineStore("statistics", () => {
 	const classWidth = computed(() => {
 		const data = initialData.value;
 		if (data.length === 0) return 0;
-		return Math.round(range.value / intervals.value);
+		return Math.round(range.value / intervalQuantity.value);
 	})
 
 	const totalFrequency = computed(() => {
-		return initialData.value.reduce((acc, curr) => acc + curr, 0);
+		return initialData.value.length;
 	})
 
-	const calculateTable = () => {
-		tableColumns.value = [];
-
+	const limits = computed(() => {
+		const ls: [number, number][] = [];
 		let start = Math.min(...initialData.value);
-		let end = start + (classWidth.value - 1);
-		for (let i = 0; i < intervals.value; i++) {
-			let frequency = initialData.value.filter(value => value >= start && value <= end).length;
-			let acummulatedFrequency = initialData.value.filter(value => value <= end).length;
-			if (i == intervals.value - 1 && acummulatedFrequency < initialData.value.length) {
-				end = end + (initialData.value.length - acummulatedFrequency) + 1;
-				frequency = frequency + (initialData.value.length - acummulatedFrequency);
-				acummulatedFrequency = acummulatedFrequency + (initialData.value.length - acummulatedFrequency);
-			}
-			const relativeFrequency = (frequency * 100) / initialData.value.length;
-			const acummulatedRelativeFrequency = (acummulatedFrequency * 100) / initialData.value.length;
-			const classMark = (start + end) / 2;
-			
-
-			tableColumns.value.push({
-				interval: [start, end],
-				realLimits: [start - 0.5, end + 0.5],
-				frequency,
-				relativeFrequency,
-				acummulatedFrequency,
-				acummulatedRelativeFrequency,
-				classMark,
-				// Internal
-				fMark: frequency * classMark
-			})
-
-			start = end + 1;
-			if (i == intervals.value - 1 && acummulatedFrequency < initialData.value.length) {
-				for (let j = 0; j <= 2; j++) {
-				}
-			} else {
-				end = start + (classWidth.value - 1);
-			}
+		for (let i = 0; i < intervalQuantity.value; i++) {
+			const end = start + classWidth.value;
+			ls.push([start, end - 1]);
+			start = end;
 		}
-	}
+		return ls;
+	})
 
-	const calculateResultValues = () => {
+	const realLimits = computed(() => {
+		const rls: [number, number][] = []
+		for (let i = 0; i < limits.value.length; i++) {
+			const [start, end] = limits.value[i];
+			const prevEnd = limits.value[i - 1] ? limits.value[i - 1][1] : start - classWidth.value;
+			const nextStart = limits.value[i + 1] ? limits.value[i + 1][0] : start + classWidth.value;
+			rls.push([
+				(start + prevEnd) / 2,
+				(end + nextStart) / 2
+			])
+		}
+		return rls;
+	})
+
+	const frequencies = computed(() => {
+		const fs: number[] = [];
+		for (let i = 0; i < realLimits.value.length; i++) {
+			const [start, end] = realLimits.value[i];
+			fs.push(initialData.value.filter(value => value >= start && value <= end).length);
+		}
+		return fs;
+	})
+
+	const accumulatedFrequencies = computed(() => {
+		// Accumulated frequencies are the current index frequency plus the previous frequencies
+		return frequencies.value.map((_, i) => frequencies.value.slice(0, i + 1).reduce((acc, curr) => acc + curr, 0));
+	})
+
+	/* const calculateResultValues = () => {
 		// Calculate Table results
 		const average = tableColumns.value.map(column => column.fMark * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
 
@@ -166,25 +151,62 @@ export const useStatisticsStore = defineStore("statistics", () => {
 			bias,
 			kurtosis
 		}
-	}
+	} */
 
 	const setData = (data: number[]) => {
 		initialData.value = data;
 	}
 
 	const getTable = computed(() => {
-		return tableColumns.value;
+		const columns: TableColumn<TableMode>[] = [];
+
+		for (let i = 0; i < intervalQuantity.value; i++) {
+			// Average between the previous end and the current start, and the current end and the next start
+			const [start, end] = limits.value[i];
+			const [realStart, realEnd] = realLimits.value[i];
+
+			const frequency = frequencies.value[i];
+			// Percent of the total frequency
+			const relativeFrequency = frequency / totalFrequency.value * 100;
+			const acummulatedFrequency = accumulatedFrequencies.value[i];
+			const acummulatedRelativeFrequency = acummulatedFrequency / totalFrequency.value * 100;
+			const classMark = (start + end) / 2;
+
+			const fMark = frequency * classMark;
+
+			columns.push({
+				frequency,
+				relativeFrequency,
+				acummulatedFrequency,
+				acummulatedRelativeFrequency,
+				classMark,
+				interval: [start, end],
+				realLimits: [realStart, realEnd],
+				fMark
+			})
+		}
+		return columns;
 	})
 
 	const getResultValues = computed(() => {
-		return resultValues.value;
+		return {
+			median: 0,
+			mode: 0,
+			average: 0,
+			stdDeviation: 0,
+			variance: 0,
+			typicalDeviation: 0,
+			quartile: 0,
+			decile: 0,
+			percentile: 0,
+			bias: 0,
+			kurtosis: 0,
+		} satisfies ResultValues;
 	})
 
 	return {
 		isGrouped: isGroupedMode,
 		setData,
-		calculateTable,
-		calculateResultValues,
 		getTable,
 		getResultValues,
 	}
