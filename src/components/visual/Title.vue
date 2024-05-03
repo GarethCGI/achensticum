@@ -17,6 +17,8 @@ type Position = typeof POSITION[keyof typeof POSITION];
 
 const position: Ref<Position> = ref(POSITION.NONE)
 
+let timedOut = false;
+
 const handleMouseMove = (event: MouseEvent) => {
 	const rect = (event.target as HTMLElement)?.getBoundingClientRect();
 	// if not hovering, none
@@ -25,14 +27,25 @@ const handleMouseMove = (event: MouseEvent) => {
 		return;
 	}
 
-	const x = event.clientX - rect.left;
-	const half = rect.width / 2;
-
-	if (x < half) {
-		position.value = POSITION.RIGHT;
-	} else {
-		position.value = POSITION.LEFT;
+	if (timedOut) {
+		return;
 	}
+	timedOut = true;
+
+	const x = event.clientX - rect.left;
+	const thirds = rect.width / 3;
+
+	if (x < thirds) {
+		position.value = POSITION.RIGHT;
+	} else if (x > thirds * 2) {
+		position.value = POSITION.LEFT;
+	} else {
+		position.value = POSITION.NONE;
+	}
+
+	setTimeout(() => {
+		timedOut = false;
+	}, 100);
 };
 </script>
 
