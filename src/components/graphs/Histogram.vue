@@ -18,19 +18,23 @@ import { computed } from 'vue';
 
 import { Bar } from 'vue-chartjs'
 
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const store = useStatisticsStore()
 
 const tableData = computed(() => store.getTable)
 
-const colorMode = useColorMode({deep: true})
+const colorMode = useColorMode({ deep: true })
 
 const data = computed(() => {
 	return {
 		labels: tableData.value.map((row) => row.classMark.toString()),
 		datasets: [{
-			label: 'Frequency',
+			label: computed(() => t('table.frequency')).value,
 			data: tableData.value.map((row) => row.frequency),
 			// Brilliant Purple
 			backgroundColor: colorMode.value === 'light' ? '#8A2BE2' : '#8A2BE2',
