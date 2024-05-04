@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1024.0px"
+   height="1024.0px"
+   viewBox="0 0 1024.0 1024.0"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:export-filename="..\src-tauri\icons\icon.png"
+   inkscape:export-xdpi="48"
+   inkscape:export-ydpi="48"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title443">Achensticum</title>
+  <sodipodi:namedview
+     id="namedview311"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="0.73851712"
+     inkscape:cx="591.04927"
+     inkscape:cy="522.669"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid434" />
+  </sodipodi:namedview>
+  <defs
+     id="defs306">
+    <linearGradient
+       id="linearGradient1114"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop1112" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1114"
+       id="radialGradient1263"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.6692448,0,0,0.22088921,-571.99454,441.12338)"
+       cx="649.95081"
+       cy="482.97357"
+       fx="649.95081"
+       fy="482.97357"
+       r="125.08789" />
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:160.247px;line-height:1.35;font-family:Turok;-inkscape-font-specification:Turok;fill:url(#radialGradient1263);fill-opacity:1;stroke:#000000;stroke-width:4.19546;stroke-dasharray:none;stroke-opacity:1"
+       x="511.53052"
+       y="573.38367"
+       id="text506"><tspan
+         sodipodi:role="line"
+         id="tspan504"
+         x="511.53052"
+         y="573.38367"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:160.247px;font-family:'Carter One';-inkscape-font-specification:'Carter One, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:url(#radialGradient1263);fill-opacity:1;stroke:#000000;stroke-width:4.19546;stroke-dasharray:none;stroke-opacity:1">Achensticum</tspan></text>
+  </g>
+  <metadata
+     id="metadata441">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Achensticum</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
