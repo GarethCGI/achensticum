@@ -3,8 +3,26 @@ import { useColorMode } from '@vueuse/core'
 import { Icon } from '@iconify/vue'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { useI18n } from 'vue-i18n';
 
 const mode = useColorMode()
+const { t } = useI18n({
+	messages: {
+		es: {
+			toggle: 'Alternar tema',
+			dark: 'Oscuro',
+			light: 'Claro',
+			auto: 'Sistema'
+		},
+		en: {
+			toggle: 'Toggle theme',
+			dark: 'Dark',
+			light: 'Light',
+			auto: 'System'
+		}
+	}
+})
+
 </script>
 
 <template>
@@ -15,18 +33,20 @@ const mode = useColorMode()
 					class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
 				<Icon icon="radix-icons:sun"
 					class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-				<span class="sr-only">Toggle theme</span>
+				<span class="sr-only">
+					{{ t('toggle') }}
+				</span>
 			</Button>
 		</DropdownMenuTrigger>
 		<DropdownMenuContent align="end">
 			<DropdownMenuItem @click="mode = 'light'">
-				Light
+				{{ t('light') }}
 			</DropdownMenuItem>
 			<DropdownMenuItem @click="mode = 'dark'">
-				Dark
+				{{ t('dark') }}
 			</DropdownMenuItem>
 			<DropdownMenuItem @click="mode = 'auto'">
-				System
+				{{ t('auto') }}
 			</DropdownMenuItem>
 		</DropdownMenuContent>
 	</DropdownMenu>

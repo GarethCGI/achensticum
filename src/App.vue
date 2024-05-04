@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useStatisticsStore } from '@/stores/Statistics';
 import DarkMode from '@/components/DarkMode.vue';
+import LangSelect from '@/components/LangSelect.vue';
 import Title from '@/components/visual/Title.vue';
 import StatisticTable from '@/components/StatisticTable.vue';
 import Results from '@/components/Results.vue';
@@ -30,6 +31,7 @@ const calculate = () => {
 				<Title />
 			</div>
 			<div class="flex items-center space-x-2">
+				<LangSelect />
 				<DarkMode />
 			</div>
 		</div>
