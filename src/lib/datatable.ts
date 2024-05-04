@@ -1,11 +1,21 @@
 import { TableColumn, TableMode } from '@/stores/Statistics'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h } from 'vue'
+import { i18n } from '@/main'
+
+
+const getTranslation = (key: string) => {
+	const { t } = i18n.global
+	return t(`table.${key}`)
+}
+
 
 export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	{
 		accessorKey: 'interval',
-		header: () => h('div', { class: 'text-right' }, 'Interval'),
+		header: () => h('div', { class: 'text-right' },
+			getTranslation('interval')
+		),
 		cell: ({ row }) => {
 			const interval: [number, number] = row.getValue('interval')
 
@@ -14,7 +24,9 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'realLimits',
-		header: () => h('div', { class: 'text-right' }, 'Real Limits'),
+		header: () => h('div', { class: 'text-right' },
+			getTranslation('realLimits')
+		),
 		cell: ({ row }) => {
 			const realLimits: [number, number] = row.getValue('realLimits')
 
@@ -23,7 +35,9 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'frequency',
-		header: () => h('div', { class: 'text-right' }, 'Frequency'),
+		header: () => h('div', { class: 'text-right' },
+			getTranslation('frequency')
+		),
 		cell: ({ row }) => {
 			const amount = Number.parseFloat(row.getValue('frequency'))
 
@@ -32,7 +46,9 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'relativeFrequency',
-		header: () => h('div', { class: 'text-right' }, 'Relative Frequency'),
+		header: () => h('div', { class: 'text-right' },
+			getTranslation('relativeFrequency')
+		),
 		cell: ({ row }) => {
 			const amount = Number.parseFloat(row.getValue('relativeFrequency'))
 
@@ -41,7 +57,9 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'acummulatedFrequency',
-		header: () => h('div', { class: 'text-right' }, 'Acummulated Frequency'),
+		header: () => h('div', { class: 'text-right' },
+			getTranslation('cumulativeFrequency')
+		),
 		cell: ({ row }) => {
 			const amount = Number.parseFloat(row.getValue('acummulatedFrequency'))
 
@@ -50,7 +68,9 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'acummulatedRelativeFrequency',
-		header: () => h('div', { class: 'text-right' }, 'Acummulated Relative Frequency'),
+		header: () => h('div', { class: 'text-right' },
+			getTranslation('cumulativeRelativeFrequency')
+		),
 		cell: ({ row }) => {
 			const amount = Number.parseFloat(row.getValue('acummulatedRelativeFrequency'))
 
@@ -59,7 +79,9 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'classMark',
-		header: () => h('div', { class: 'text-right' }, 'Class Mark'),
+		header: () => h('div', { class: 'text-right' }, 
+			getTranslation('classMark')
+		),
 		cell: ({ row }) => {
 			const amount = Number.parseFloat(row.getValue('classMark'))
 

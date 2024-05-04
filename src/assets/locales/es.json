@@ -1,0 +1,22 @@
+{
+	"input": "Introduce los datos aqui...",
+	"table": {
+		"interval": "Intervalo",
+		"realLimits": "Límites Reales",
+		"frequency": "Frecuencia",
+		"relativeFrequency": "Frecuencia Relativa",
+		"cumulativeFrequency": "Frecuencia Acumulada",
+		"cumulativeRelativeFrequency": "Frecuencia Relativa Acumulada",
+		"classMark": "Marca de Clase"
+	},
+	"results": {
+		"median": "Media",
+		"mode": "Moda",
+		"average": "Mediana",
+		"stdDeviation": "Desviación Estándar",
+		"variance": "Varianza",
+		"typDeviation": "Desviación Típica",
+		"bias": "Sesgo",
+		"skewness": "Asimetría"
+	}
+}

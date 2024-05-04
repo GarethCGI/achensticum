@@ -8,30 +8,33 @@ import {
 
 import { computed } from 'vue'
 import { useStatisticsStore } from '@/stores/Statistics'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const resultCards = [
 	{
-		name: "Median",
+		name: computed(() => t('results.median')),
 		accessKey: "median",
 	},
 	{
-		name: "Mode",
+		name: computed(() => t('results.mode')),
 		accessKey: "mode",
 	},
 	{
-		name: "Average",
+		name: computed(() => t('results.average')),
 		accessKey: "average",
 	},
 	{
-		name: "Standard Deviation",
+		name: computed(() => t('results.stdDeviation')),
 		accessKey: "stdDeviation",
 	},
 	{
-		name: "Variance",
+		name: computed(() => t('results.variance')),
 		accessKey: "variance",
 	},
 	{
-		name: "Typical Deviation",
+		name: computed(() => t('results.typDeviation')),
 		accessKey: "typicalDeviation",
 	},
 	/* {
@@ -47,11 +50,11 @@ const resultCards = [
 		accessKey: "percentile",
 	}, */
 	{
-		name: "Bias",
+		name: computed(() => t('results.bias')),
 		accessKey: "bias",
 	},
 	{
-		name: "Kurtosis",
+		name: computed(() => t('results.bias')),
 		accessKey: "kurtosis",
 	}
 ] as const
@@ -65,7 +68,7 @@ const results = computed(() => store.getResultValues)
 	<div class="container grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 		<Card v-for="card in resultCards" :key="card.accessKey" class="flex flex-col text-center">
 			<CardHeader>
-				<CardTitle>{{ card.name }}</CardTitle>
+				<CardTitle>{{ card.name.value }}</CardTitle>
 				<!-- <CardDescription>Card Description</CardDescription> -->
 			</CardHeader>
 			<CardContent>

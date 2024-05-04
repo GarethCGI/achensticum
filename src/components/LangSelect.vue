@@ -9,11 +9,9 @@ import {
 	SelectValue,
 } from '@/components/ui/select'
 import { computed } from 'vue';
-
-
 import { useI18n } from 'vue-i18n'
 
-const { t, locale, availableLocales } = useI18n({
+const { t, locale } = useI18n({
 	useScope: 'global',
 	messages: {
 		es: {
@@ -32,12 +30,8 @@ const { t, locale, availableLocales } = useI18n({
 		}
 	}
 })
-availableLocales.forEach(locale => {
-	console.log(`${locale} locale`,)
-})
 
 const changed = (value: string) => {
-	console.log('changed', locale.value, value)
 	locale.value = value as LocaleValue
 }
 
@@ -60,7 +54,7 @@ type LocaleValue = Locale['value'];
 			<SelectGroup>
 				<SelectLabel>{{ t('lang') }}</SelectLabel>
 				<SelectItem v-for="locale in locales" :key="locale.value" :value="locale.value">
-					{{ locale.label }}
+					{{ locale.label.value }}
 				</SelectItem>
 			</SelectGroup>
 		</SelectContent>
