@@ -1,16 +1,31 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useStatisticsStore } from '@/stores/Statistics';
+import Textarea from './components/ui/textarea/Textarea.vue';
+
 import DarkMode from '@/components/DarkMode.vue';
 import LangSelect from '@/components/LangSelect.vue';
 import Title from '@/components/visual/Title.vue';
+import MultiAdd from '@/components/MultiAdd.vue';
 import StatisticTable from '@/components/StatisticTable.vue';
 import Results from '@/components/Results.vue';
 import Histogram from '@/components/graphs/Histogram.vue';
 import FreqPolygon from '@/components/graphs/FreqPolygon.vue';
 import { useI18n } from 'vue-i18n';
+import Button from './components/ui/button/Button.vue';
 
-const { t } = useI18n();
+const { t } = useI18n({
+	messages: {
+		es: {
+			input: 'Introduce los datos separados por comas, espacios o saltos de línea',
+			clear: 'Limpiar'
+		},
+		en: {
+			input: 'Enter the data separated by commas, spaces or line breaks',
+			clear: 'Clear'
+		}
+	}
+});
 
 const store = useStatisticsStore();
 
@@ -24,6 +39,11 @@ const parseInput = () => {
 const calculate = () => {
 	parseInput();
 	store.setData(parsedInput.value);
+}
+
+const add = (...values: number[]) => {
+	input.value = parsedInput.value.concat(values).join(', ');
+	calculate();
 }
 </script>
 
@@ -39,8 +59,13 @@ const calculate = () => {
 			</div>
 		</div>
 		<div class="space-y-4">
-			<textarea v-model="input" class="w-full h-48 p-4 text-lg bg-gray-100 dark:bg-gray-800 rounded-lg"
-				style="resize: none;" :placeholder="t('input')" @input="calculate"></textarea>
+			<Textarea v-model="input" class="w-full h-48 p-4 text-lg bg-gray-100 dark:bg-black rounded-lg"
+				style="resize: none;" :placeholder="t('input')" @input="calculate"></Textarea>
+				<div class="flex items-center space-x-4">
+					
+				<MultiAdd @add="add" />
+				<Button @click="input = ''" variant="outline">{{ t('clear') }}</Button>
+			</div>
 			<StatisticTable />
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 				<Results />

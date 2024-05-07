@@ -188,17 +188,17 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		const kurtosis = tableData.map(column => Math.pow(column.classMark - average, 4) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
 
 		return {
-			median,
-			mode,
-			average,
-			stdDeviation: parseFloat(stdDeviation.toFixed(2)),
-			variance: parseFloat(variance.toFixed(2)),
-			typicalDeviation: parseFloat(typicalDeviation.toFixed(2)),
-			quartile,
-			decile,
-			percentile,
+			median: intoFixed(median, 2),
+			mode: intoFixed(mode, 2),
+			average: intoFixed(average, 2),
+			stdDeviation: intoFixed(stdDeviation, 2),
+			variance: intoFixed(variance, 2),
+			typicalDeviation: intoFixed(typicalDeviation, 2),
+			quartile: intoFixed(quartile, 2),
+			decile: intoFixed(decile, 2),
+			percentile: intoFixed(percentile, 2),
 			bias: parseFloat(bias.toFixed(2)),
-			kurtosis: parseFloat(kurtosis.toFixed(2))
+			kurtosis: intoFixed(kurtosis, 2),
 		} satisfies ResultValues;
 	})
 
@@ -209,3 +209,5 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		getResultValues,
 	}
 })
+
+const intoFixed = (value: number, fixed: number) => parseFloat(value.toFixed(fixed));
