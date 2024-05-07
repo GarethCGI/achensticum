@@ -54,7 +54,7 @@ const resultCards = [
 		accessKey: "bias",
 	},
 	{
-		name: computed(() => t('results.bias')),
+		name: computed(() => t('results.skewness')),
 		accessKey: "kurtosis",
 	}
 ] as const
