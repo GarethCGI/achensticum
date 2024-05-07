@@ -50,7 +50,7 @@ type LocaleValue = Locale['value'];
 		<SelectTrigger>
 			<SelectValue :placeholder="t('lang')" />
 		</SelectTrigger>
-		<SelectContent>
+		<SelectContent class="bg-white dark:bg-gray-950">
 			<SelectGroup>
 				<SelectLabel>{{ t('lang') }}</SelectLabel>
 				<SelectItem v-for="locale in locales" :key="locale.value" :value="locale.value">

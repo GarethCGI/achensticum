@@ -59,7 +59,7 @@ const add = () => {
 				{{ t('open') }}
 			</Button>
 	</DrawerTrigger>
-    <DrawerContent class="bg-white dark:bg-gray-800">
+    <DrawerContent class="bg-white dark:bg-black">
       <DrawerHeader>
         <DrawerTitle>
 				{{ t('title') }}

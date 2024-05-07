@@ -38,7 +38,7 @@ const { t } = useI18n({
 				</span>
 			</Button>
 		</DropdownMenuTrigger>
-		<DropdownMenuContent align="end">
+		<DropdownMenuContent align="end" class="bg-white dark:bg-gray-950">
 			<DropdownMenuItem @click="mode = 'light'">
 				{{ t('light') }}
 			</DropdownMenuItem>

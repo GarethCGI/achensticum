@@ -33,7 +33,17 @@ const input = ref('');
 const parsedInput = ref<number[]>([]);
 
 const parseInput = () => {
-	parsedInput.value = input.value.split(/[\s,]+/).map(parseFloat).filter(n => !isNaN(n));
+	// Split by spaces, command, line breaks and convert to numbers, then filter out NaN values, ignore empty values
+	const split = input.value.split(/[\s,]+/)
+	const p = split.filter(v => v !== '');
+	const buffer: number[] = [];
+	for (const value of p) {
+		const num = parseFloat(value);
+		if (!isNaN(num) && isFinite(num) && num !== null) {
+			buffer.push(num);
+		}
+	}
+	parsedInput.value = buffer;
 }
 
 const calculate = () => {
@@ -60,7 +70,8 @@ const add = (...values: number[]) => {
 		</div>
 		<div class="space-y-4">
 			<Textarea v-model="input" class="w-full h-48 p-4 text-lg bg-gray-100 dark:bg-black rounded-lg"
-				style="resize: none;" :placeholder="t('input')" @input="calculate"></Textarea>
+				style="resize: none;" :placeholder="t('input')" @keyup="calculate"
+				></Textarea>
 				<div class="flex items-center space-x-4">
 					
 				<MultiAdd @add="add" />
