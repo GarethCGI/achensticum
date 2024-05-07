@@ -125,15 +125,24 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		const columns: TableColumn<TableMode>[] = [];
 
 		for (let i = 0; i < intervalQuantity.value; i++) {
-			const [start, end] = limits.value[i];
-			const [realStart, realEnd] = realLimits.value[i];
+			let [start, end] = limits.value[i];
+			let [realStart, realEnd] = realLimits.value[i];
 
-			const frequency = frequencies.value[i];
+			let f = frequencies.value[i];
+			let ac = accumulatedFrequencies.value[i];
+
+			if (i == intervalQuantity.value - 1 && ac < initialData.value.length) {
+				end = end + (initialData.value.length - ac) + 1;
+				realEnd = end + 0.5;
+				f = f + (initialData.value.length - ac);
+				ac = ac + (initialData.value.length - ac);
+			}
+
+			const frequency = f;
+			const acummulatedFrequency = ac;
 			const relativeFrequency = frequency / totalFrequency.value * 100;
-			const acummulatedFrequency = accumulatedFrequencies.value[i];
 			const acummulatedRelativeFrequency = acummulatedFrequency / totalFrequency.value * 100;
 			const classMark = (start + end) / 2;
-
 			const fMark = frequency * classMark;
 
 			columns.push({
