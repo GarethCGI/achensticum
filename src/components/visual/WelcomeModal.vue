@@ -8,12 +8,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
-/* import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger
-} from '@/components/ui/tooltip' */
 import { Button } from '@/components/ui/button'
 
 import { ref } from 'vue';
@@ -27,9 +21,6 @@ const { t } = useI18n({
 			description: `Te damos la bienvenida a Achensticum, una aplicación que te permite el cálculo de estadísticas para datos agrupados.
 			Incluyendo medidas de tendencia central, dispersión, sesgo y curtosis.`,
 			ok: "Aceptar",
-			tooltip: {
-
-			}
 		},
 		en: {
 			open: "About this app",
@@ -37,9 +28,6 @@ const { t } = useI18n({
 			description: `Welcome to Achensticum, an application that allows you to calculate statistics for grouped data.
 			Including measures of central tendency, dispersion, bias and kurtosis.`,
 			ok: "Accept",
-			tooltip: {
-
-			}
 		}
 	}
 })

@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger
+} from '@/components/ui/tooltip'
 import { Ref, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 const POSITION = {
 	LEFT: 1,
 	RIGHT: 2,
@@ -9,6 +17,7 @@ const POSITION = {
 type Position = typeof POSITION[keyof typeof POSITION];
 
 const position: Ref<Position> = ref(POSITION.NONE)
+const showTooltip = ref(false)
 
 let timedOut = false;
 
@@ -17,6 +26,7 @@ const handleMouseMove = (event: MouseEvent) => {
 	// if not hovering, none
 	if (!rect) {
 		position.value = POSITION.NONE;
+		showTooltip.value = false;
 		return;
 	}
 
@@ -28,6 +38,7 @@ const handleMouseMove = (event: MouseEvent) => {
 	const x = event.clientX - rect.left;
 	const thirds = rect.width / 3;
 
+	showTooltip.value = true;
 	if (x < thirds) {
 		position.value = POSITION.RIGHT;
 	} else if (x > thirds * 2) {
@@ -36,47 +47,64 @@ const handleMouseMove = (event: MouseEvent) => {
 		position.value = POSITION.NONE;
 	}
 
+
 	setTimeout(() => {
 		timedOut = false;
 	}, 100);
 };
+
+const handleClose = () => {
+	position.value = POSITION.NONE;
+	showTooltip.value = false;
+};
+
+const { t } = useI18n({
+
+	messages: {
+		es: {
+			achen: "Gottfried Achenwall es considerado el fundador de la estadística. Fue un filósofo alemán.",
+			sticum: "Statisticum es una palabra en latín que significa 'del estado'. Y por ende es un precursor del término moderno 'estadística'.",
+			both: "Achensticum es un acrónimo de las dos palabras, y es un tributo a los cimientos de la estadística."
+		},
+		en: {
+			achen: "Gottfried Achenwall is considered the founder of statistics. He was a German philosopher.",
+			sticum: "Statisticum is a Latin word meaning 'of the state'. And thus is a precursor to the modern term 'statistics'.",
+			both: "Achensticum is a portmanteau of the two words, and is a tribute to the foundations of statistics."
+		}
+	}
+})
 </script>
 
 <template>
 	<div class="center-title 
 	w-1/12">
-		<!-- 	<TooltipProvider>
-			ml-20 sm:ml-40 md:ml-96 xl:ml-[48rem] 
-			<Tooltip>
-				<TooltipTrigger> -->
-		<h2 class="text-2xl font-bold tracking-tight 
-					left-title" :class="{ 'hide-title': position === POSITION.LEFT }">ACHENWALL</h2>
-		<!-- 	</TooltipTrigger>
+		<TooltipProvider>
+			<Tooltip :open="showTooltip">
+				<TooltipTrigger></TooltipTrigger>
 				<TooltipContent>
-					<p>
-						Gottfried <strong>Achen</strong>wall is considered the founder of statistics. He was a
-						German
-						philosopher.
-					</p>
+					<template v-if="position === POSITION.RIGHT">
+						<p>
+							{{ t('achen') }}
+						</p>
+					</template>
+					<template v-else-if="position === POSITION.LEFT">
+						<p>
+							{{ t('sticum') }}
+						</p>
+					</template>
+					<template v-else>
+						<p>
+							{{ t('both') }}
+						</p>
+					</template>
+
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
-		<TooltipProvider>
-			<Tooltip>
-				<TooltipTrigger> -->
+		<h2 class="text-2xl font-bold tracking-tight 
+						left-title" :class="{ 'hide-title': position === POSITION.LEFT }">ACHENWALL</h2>
 		<h2 class="text-2xl font-bold tracking-tight
-					right-title" :class="{ 'hide-title': position === POSITION.RIGHT }">STATISTICUM</h2>
-		<!-- </TooltipTrigger>
-				<TooltipContent>
-					<p>
-						Stati<strong>sticum</strong> is a Latin word meaning "of the state". And thus is a precursor
-						to the
-						modern term
-						"statistics".
-					</p>
-				</TooltipContent>
-			</Tooltip>
-		</TooltipProvider> -->
+						right-title" :class="{ 'hide-title': position === POSITION.RIGHT }">STATISTICUM</h2>
 		<div class="mask bg-background" :class="{
 			'left': position === POSITION.LEFT, 'right': position === POSITION.RIGHT
 		}">
@@ -86,9 +114,9 @@ const handleMouseMove = (event: MouseEvent) => {
 		</div>
 		<h2 class="text-2xl font-bold tracking-tight"
 			:class="{ 'hide-title': position !== POSITION.NONE, 'show-title': position === POSITION.NONE }"
-			style="position: absolute;" @mousemove="handleMouseMove" @mouseleave="position = POSITION.NONE">ACHENSTICUM
+			style="position: absolute;" @mousemove="handleMouseMove" @mouseleave="handleClose">
+			ACHENSTICUM
 		</h2>
-
 	</div>
 </template>
 
