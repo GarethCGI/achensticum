@@ -79,7 +79,7 @@ const handleMouseMove = (event: MouseEvent) => {
 			'left': position === POSITION.LEFT, 'right': position === POSITION.RIGHT
 		}">
 		</div>
-		<div class="diagonal bg-black dark:bg-white"
+		<div class="diagonal bg-secondary dark:bg-white"
 			:class="{ 'left-diagonal': position === POSITION.LEFT, 'right-diagonal': position === POSITION.RIGHT }">
 		</div>
 		<h2 class="text-2xl font-bold tracking-tight"
