@@ -55,7 +55,7 @@ const handleMouseMove = (event: MouseEvent) => {
 			<Tooltip>
 				<TooltipTrigger> -->
 		<h2 class="text-2xl font-bold tracking-tight 
-					left-title" :class="{ 'hide-title': position === POSITION.LEFT }">Achenwall</h2>
+					left-title" :class="{ 'hide-title': position === POSITION.LEFT }">ACHENWALL</h2>
 		<!-- 	</TooltipTrigger>
 				<TooltipContent>
 					<p>
@@ -70,7 +70,7 @@ const handleMouseMove = (event: MouseEvent) => {
 			<Tooltip>
 				<TooltipTrigger> -->
 		<h2 class="text-2xl font-bold tracking-tight
-					right-title" :class="{ 'hide-title': position === POSITION.RIGHT }">Statisticum</h2>
+					right-title" :class="{ 'hide-title': position === POSITION.RIGHT }">STATISTICUM</h2>
 		<!-- </TooltipTrigger>
 				<TooltipContent>
 					<p>
@@ -91,7 +91,7 @@ const handleMouseMove = (event: MouseEvent) => {
 		</div>
 		<h2 class="text-2xl font-bold tracking-tight"
 			:class="{ 'hide-title': position !== POSITION.NONE, 'show-title': position === POSITION.NONE }"
-			style="position: absolute;" @mousemove="handleMouseMove" @mouseleave="position = POSITION.NONE">Achensticum
+			style="position: absolute;" @mousemove="handleMouseMove" @mouseleave="position = POSITION.NONE">ACHENSTICUM
 		</h2>
 
 	</div>
@@ -109,26 +109,26 @@ const handleMouseMove = (event: MouseEvent) => {
 .diagonal {
 	width: 0.2rem;
 	height: 3rem;
-	z-index: 5;
-	left: 50%;
+	z-index: 50;
+	left: 40%;
 	position: absolute;
-	rotate: 25deg;
+	rotate: 10deg;
 	transition: all 0.1s;
 }
 
 .left-diagonal {
-	transform: translate3d(-6rem, 2.8rem, 0) rotate(-10deg);
+	transform: translate3d(-7rem, 1.2rem, 0);
 }
 
 .right-diagonal {
-	transform: translate3d(6rem, -2.8rem, 0) rotate(10deg);
+	transform: translate3d(7rem, -1.2rem, 0);
 }
 
 .left-title {
 	position: absolute;
 	right: 0;
 	top: 0;
-	transform: translateX(1.8rem) translateY(-1rem);
+	transform: translateX(3.35rem) translateY(-1rem);
 	z-index: -3;
 }
 
@@ -136,7 +136,7 @@ const handleMouseMove = (event: MouseEvent) => {
 	position: absolute;
 	left: 0;
 	top: 0;
-	transform: translateX(-3.6rem) translateY(-1rem);
+	transform: translateX(-3.75rem) translateY(-1rem);
 	z-index: -3;
 }
 
@@ -152,6 +152,7 @@ h2 {
 	position: absolute;
 	z-index: -1;
 	transition: all 1ms 1ms;
+	/* opacity: 0.5; */
 }
 
 .mask.left {
