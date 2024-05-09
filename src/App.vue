@@ -13,6 +13,7 @@ import Histogram from '@/components/graphs/Histogram.vue';
 import FreqPolygon from '@/components/graphs/FreqPolygon.vue';
 import { useI18n } from 'vue-i18n';
 import Button from './components/ui/button/Button.vue';
+import WelcomeModal from './components/visual/WelcomeModal.vue';
 
 const { t } = useI18n({
 	messages: {
@@ -69,7 +70,7 @@ const add = (...values: number[]) => {
 			</div>
 		</div>
 		<div class="space-y-4">
-			<Textarea v-model="input" class="w-full h-48 p-4 text-lg dark:bg-black rounded-lg"
+			<Textarea v-model="input" class="w-full h-48 p-4 text-lg dark:bg-black rounded-lg text-muted"
 				style="resize: none;" :placeholder="t('input')" @keyup="calculate"
 				></Textarea>
 				<div class="flex items-center space-x-4">
@@ -86,16 +87,19 @@ const add = (...values: number[]) => {
 				</div>
 			</div>
 		</div>
+		<div class="w-full flex flex-row-reverse">
+			<WelcomeModal />
+		</div>
 	</div>
 </template>
 
-<style scoped>
+<style>
 
-TextArea {
+textarea {
 	font-family: 'Carter One';
 }
 
-Button {
+button {
 	font-family: 'Axis';
 }
 
