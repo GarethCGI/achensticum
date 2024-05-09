@@ -17,11 +17,11 @@ import Button from './components/ui/button/Button.vue';
 const { t } = useI18n({
 	messages: {
 		es: {
-			input: 'Introduce los datos separados por comas, espacios o saltos de línea',
+			input: 'Introduce los datos separados por comas, espacios o saltos de línea.',
 			clear: 'Limpiar'
 		},
 		en: {
-			input: 'Enter the data separated by commas, spaces or line breaks',
+			input: 'Enter the data separated by commas, spaces or line breaks.',
 			clear: 'Clear'
 		}
 	}
@@ -89,4 +89,10 @@ const add = (...values: number[]) => {
 	</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+TextArea {
+	font-family: 'Carter One';
+}
+
+</style>
