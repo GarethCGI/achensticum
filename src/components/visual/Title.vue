@@ -1,12 +1,5 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger
-} from '@/components/ui/tooltip'
-
 const POSITION = {
 	LEFT: 1,
 	RIGHT: 2,
@@ -82,7 +75,7 @@ const handleMouseMove = (event: MouseEvent) => {
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider> -->
-		<div class="mask dark:bg-background bg-white" :class="{
+		<div class="mask bg-background" :class="{
 			'left': position === POSITION.LEFT, 'right': position === POSITION.RIGHT
 		}">
 		</div>
