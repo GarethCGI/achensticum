@@ -50,52 +50,57 @@ const handleMouseMove = (event: MouseEvent) => {
 </script>
 
 <template>
-	<div class="center-title" @mousemove="handleMouseMove" @mouseleave="position = POSITION.NONE">
-		<TooltipProvider>
+	<div class="center-title w-1/12">
+		<!-- 	<TooltipProvider>
 			<Tooltip>
-				<TooltipTrigger>
-					<h2 class="text-2xl font-bold tracking-tight 
-					left-title" :class="{ 'hide-title': position === POSITION.LEFT }">ACHENWALL</h2>
-				</TooltipTrigger>
+				<TooltipTrigger> -->
+		<h2 class="text-2xl font-bold tracking-tight 
+					left-title" :class="{ 'hide-title': position === POSITION.LEFT }">Achenwall</h2>
+		<!-- 	</TooltipTrigger>
 				<TooltipContent>
 					<p>
-						Gottfried <strong>Achen</strong>wall is considered the founder of statistics. He was a German philosopher.
+						Gottfried <strong>Achen</strong>wall is considered the founder of statistics. He was a
+						German
+						philosopher.
 					</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
 		<TooltipProvider>
 			<Tooltip>
-				<TooltipTrigger>
-					<h2 class="text-2xl font-bold tracking-tight
-					right-title" :class="{ 'hide-title': position === POSITION.RIGHT }">STATISTICUM</h2>
-				</TooltipTrigger>
+				<TooltipTrigger> -->
+		<h2 class="text-2xl font-bold tracking-tight
+					right-title" :class="{ 'hide-title': position === POSITION.RIGHT }">Statisticum</h2>
+		<!-- </TooltipTrigger>
 				<TooltipContent>
 					<p>
 						Stati<strong>sticum</strong> is a Latin word meaning "of the state". And thus is a precursor
-						to the modern term "statistics".
+						to the
+						modern term
+						"statistics".
 					</p>
 				</TooltipContent>
 			</Tooltip>
-		</TooltipProvider>
-		<div class="mask" :class="{
-		'left': position === POSITION.LEFT, 'right': position === POSITION.RIGHT
-	}">
+		</TooltipProvider> -->
+		<div class="mask dark:bg-background bg-white" :class="{
+			'left': position === POSITION.LEFT, 'right': position === POSITION.RIGHT
+		}">
 		</div>
 		<div class="diagonal bg-black dark:bg-white"
 			:class="{ 'left-diagonal': position === POSITION.LEFT, 'right-diagonal': position === POSITION.RIGHT }">
 		</div>
 		<h2 class="text-2xl font-bold tracking-tight"
 			:class="{ 'hide-title': position !== POSITION.NONE, 'show-title': position === POSITION.NONE }"
-			style="position: absolute;">
-			ACHENSTICUM</h2>
+			style="position: absolute;" @mousemove="handleMouseMove" @mouseleave="position = POSITION.NONE">Achensticum
+		</h2>
+
 	</div>
 </template>
 
 <style scoped>
 .center-title {
 	position: absolute;
-	left: calc(50% - 50px);
+	left: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -103,62 +108,61 @@ const handleMouseMove = (event: MouseEvent) => {
 
 .diagonal {
 	width: 0.2rem;
-	height: 3.5rem;
+	height: 3rem;
 	z-index: 5;
-	right: 0.22rem;
+	left: 50%;
 	position: absolute;
 	rotate: 25deg;
 	transition: all 0.1s;
-	background-color: theme('colors.primary.DEFAULT');
 }
 
 .left-diagonal {
-	transform: translate3d(-5.6rem, 2.5rem, 0) rotate(-5deg);
+	transform: translate3d(-6rem, 2.8rem, 0) rotate(-10deg);
 }
 
 .right-diagonal {
-	transform: translate3d(6rem, -2.5rem, 0) rotate(5deg);
+	transform: translate3d(6rem, -2.8rem, 0) rotate(10deg);
 }
 
 .left-title {
 	position: absolute;
 	right: 0;
 	top: 0;
-	transform: translateX(5.84rem) translateY(-1rem);
+	transform: translateX(1.8rem) translateY(-1rem);
+	z-index: -3;
 }
 
 .right-title {
 	position: absolute;
 	left: 0;
 	top: 0;
-	transform: translateX(-6.23rem) translateY(-1rem);
+	transform: translateX(-3.6rem) translateY(-1rem);
+	z-index: -3;
 }
 
 h2 {
 	font-size: 2rem;
+	font-family: "Axis";
 	color: theme('colors.primary.DEFAULT');
-	font-family: 'Axis'
 }
 
 .mask {
 	height: 3rem;
-	width: 15.1rem;
+	width: 15rem;
 	position: absolute;
-	z-index: 3;
+	z-index: -1;
 	transition: all 1ms 1ms;
-	color: var(--background);
 }
 
 .mask.left {
-	transform: translateX(-14rem);
+	transform: translateX(-15rem);
 }
 
 .mask.right {
-	transform: translateX(13.75rem);
+	transform: translateX(15rem);
 }
 
 .hide-title {
-	z-index: -1;
 	opacity: 0;
 }
 
