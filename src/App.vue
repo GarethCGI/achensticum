@@ -69,7 +69,7 @@ const add = (...values: number[]) => {
 			</div>
 		</div>
 		<div class="space-y-4">
-			<Textarea v-model="input" class="w-full h-48 p-4 text-lg bg-gray-100 dark:bg-black rounded-lg"
+			<Textarea v-model="input" class="w-full h-48 p-4 text-lg dark:bg-black rounded-lg"
 				style="resize: none;" :placeholder="t('input')" @keyup="calculate"
 				></Textarea>
 				<div class="flex items-center space-x-4">
@@ -93,6 +93,10 @@ const add = (...values: number[]) => {
 
 TextArea {
 	font-family: 'Carter One';
+}
+
+Button {
+	font-family: 'Axis';
 }
 
 </style>

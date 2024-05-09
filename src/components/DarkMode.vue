@@ -38,16 +38,24 @@ const { t } = useI18n({
 				</span>
 			</Button>
 		</DropdownMenuTrigger>
-		<DropdownMenuContent align="end" class="bg-white dark:bg-gray-950">
-			<DropdownMenuItem @click="mode = 'light'">
+		<DropdownMenuContent align="end">
+			<DropdownMenuItem class="multifont "@click="mode = 'light'">
 				{{ t('light') }}
 			</DropdownMenuItem>
-			<DropdownMenuItem @click="mode = 'dark'">
+			<DropdownMenuItem class="multifont" @click="mode = 'dark'">
 				{{ t('dark') }}
 			</DropdownMenuItem>
-			<DropdownMenuItem @click="mode = 'auto'">
+			<DropdownMenuItem class="multifont" @click="mode = 'auto'">
 				{{ t('auto') }}
 			</DropdownMenuItem>
 		</DropdownMenuContent>
 	</DropdownMenu>
 </template>
+
+<style scoped>
+
+Button, .multifont {
+	font-family: 'Axis';
+}
+
+</style>

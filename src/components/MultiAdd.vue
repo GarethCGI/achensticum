@@ -60,7 +60,7 @@ const add = () => {
 			</Button>
 	</DrawerTrigger>
     <DrawerContent class="bg-white dark:bg-black">
-      <DrawerHeader>
+      <DrawerHeader class="multifont">
         <DrawerTitle>
 				{{ t('title') }}
 		</DrawerTitle>
@@ -85,3 +85,15 @@ const add = () => {
     </DrawerContent>
   </Drawer>
 </template>
+
+<style scoped>
+
+Button, .multifont {
+	font-family: 'Axis';
+}
+
+Input {
+	font-family: 'Carter One';
+}
+
+</style>

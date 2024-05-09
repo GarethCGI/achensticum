@@ -78,7 +78,7 @@ const handleMouseMove = (event: MouseEvent) => {
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
-		<div class="mask dark:bg-background bg-white" :class="{
+		<div class="mask" :class="{
 		'left': position === POSITION.LEFT, 'right': position === POSITION.RIGHT
 	}">
 		</div>
@@ -146,6 +146,7 @@ h2 {
 	position: absolute;
 	z-index: 3;
 	transition: all 1ms 1ms;
+	color: var(--background);
 }
 
 .mask.left {

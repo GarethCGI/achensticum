@@ -16,7 +16,7 @@
 		--card: 0 0% 100%;
 		--card-foreground: 0 0% 3.9%;
 
-		--border: 0 0% 89.8%;
+		--border: 344 85% 57%;
 		--input: 0 0% 89.8%;
 
 		--primary: 0 0% 9%;
@@ -36,9 +36,9 @@
 		--radius: 0.5rem;
 	}
 
-	.dark {
-		--background: 344 85% 3%;
-		--foreground: 0 0% 98%;
+	.light {
+		--background: 344 85% 94%;
+		--foreground: 344 85% 57%;
 
 		--muted: 0 0% 14.9%;
 		--muted-foreground: 0 0% 63.9%;
@@ -66,6 +66,37 @@
 
 		--ring: 0 0% 83.1%;
 	}
+
+	.dark {
+		--background: 344 85% 3%;
+		--foreground: 0 0% 98%;
+
+		--muted: 0 0% 14.9%;
+		--muted-foreground: 0 0% 63.9%;
+
+		--popover: 0 0% 3.9%;
+		--popover-foreground: 0 0% 98%;
+
+		--card: 0 0% 3.9%;
+		--card-foreground: 0 0% 98%;
+
+		--border: 344 85% 57%;
+		--input: 344 85% 57%;
+
+		--primary: 344 85% 57%;
+		--primary-foreground: 0 0% 9%;
+
+		--secondary: 344 85% 57%;
+		--secondary-foreground: 344 85% 57%;
+
+		--accent: 344 85% 57%;
+		--accent-foreground: 0 0% 0%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 0 0% 98%;
+
+		--ring: 0 0% 83.1%;
+	}
 }
 
 @layer base {
@@ -86,4 +117,9 @@
 @font-face {
 	font-family: "Carter One";
 	src: url(/src/assets/fonts/carterone.ttf);
+}
+
+@font-face {
+	font-family: "Petscop Wide";
+	src: url(/src/assets/fonts/petscopwide.ttf)
 }
