@@ -43,8 +43,10 @@ const handleMouseMove = (event: MouseEvent) => {
 </script>
 
 <template>
-	<div class="center-title w-1/12">
+	<div class="center-title 
+	w-1/12">
 		<!-- 	<TooltipProvider>
+			ml-20 sm:ml-40 md:ml-96 xl:ml-[48rem] 
 			<Tooltip>
 				<TooltipTrigger> -->
 		<h2 class="text-2xl font-bold tracking-tight 
@@ -79,7 +81,7 @@ const handleMouseMove = (event: MouseEvent) => {
 			'left': position === POSITION.LEFT, 'right': position === POSITION.RIGHT
 		}">
 		</div>
-		<div class="diagonal bg-secondary dark:bg-white"
+		<div class="diagonal bg-foreground dark:bg-white"
 			:class="{ 'left-diagonal': position === POSITION.LEFT, 'right-diagonal': position === POSITION.RIGHT }">
 		</div>
 		<h2 class="text-2xl font-bold tracking-tight"
@@ -93,7 +95,6 @@ const handleMouseMove = (event: MouseEvent) => {
 <style scoped>
 .center-title {
 	position: absolute;
-	left: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -106,15 +107,15 @@ const handleMouseMove = (event: MouseEvent) => {
 	left: 40%;
 	position: absolute;
 	rotate: 10deg;
-	transition: all 0.1s;
+	transition: all 100ms;
 }
 
 .left-diagonal {
-	transform: translate3d(-7rem, 1.2rem, 0);
+	transform: translate3d(-10rem, 1.7rem, 0);
 }
 
 .right-diagonal {
-	transform: translate3d(7rem, -1.2rem, 0);
+	transform: translate3d(10rem, -1.7rem, 0);
 }
 
 .left-title {
@@ -141,7 +142,7 @@ h2 {
 
 .mask {
 	height: 3rem;
-	width: 15rem;
+	width: 20rem;
 	position: absolute;
 	z-index: -1;
 	transition: all 1ms 1ms;
@@ -149,11 +150,11 @@ h2 {
 }
 
 .mask.left {
-	transform: translateX(-15rem);
+	transform: translateX(-20rem);
 }
 
 .mask.right {
-	transform: translateX(15rem);
+	transform: translateX(20rem);
 }
 
 .hide-title {

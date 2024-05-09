@@ -44,6 +44,22 @@ const { t } = useI18n({
 	}
 })
 const open = ref(true)
+
+const scrollToTop = () => {
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth'
+	})
+}
+
+const doClose = () => {
+	open.value = false
+	// and scroll to top
+	setTimeout(() => {
+		scrollToTop()
+	}, 200)
+}
+
 </script>
 
 <template>
@@ -66,7 +82,7 @@ const open = ref(true)
 
 			</div>
 			<DialogFooter>
-				<Button variant="default" @click="open = false" class="w-full text-background">
+				<Button variant="default" @click="doClose" class="w-full text-background">
 					{{ t('ok') }}
 				</Button>
 			</DialogFooter>

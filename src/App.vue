@@ -61,20 +61,18 @@ const add = (...values: number[]) => {
 <template>
 	<div class="h-full flex-1 flex-col space-y-8 p-8">
 		<div class="flex items-center justify-between space-y-2">
-			<div>
+			<div class="flex flex-row items-center justify-center space-x-4 w-full">
 				<Title />
 			</div>
-			<div class="flex items-center space-x-2">
+			<div class="flex flex-row items-center space-x-2">
 				<LangSelect />
 				<DarkMode />
 			</div>
 		</div>
 		<div class="space-y-4">
 			<Textarea v-model="input" class="w-full h-48 p-4 text-lg dark:bg-black rounded-lg text-muted"
-				style="resize: none;" :placeholder="t('input')" @keyup="calculate"
-				></Textarea>
-				<div class="flex items-center space-x-4">
-					
+				style="resize: none;" :placeholder="t('input')" @keyup="calculate"></Textarea>
+			<div class="flex items-center space-x-4">
 				<MultiAdd @add="add" />
 				<Button @click="input = ''" variant="outline">{{ t('clear') }}</Button>
 			</div>
@@ -94,7 +92,6 @@ const add = (...values: number[]) => {
 </template>
 
 <style>
-
 textarea {
 	font-family: 'Carter One';
 }
@@ -102,5 +99,4 @@ textarea {
 button {
 	font-family: 'Axis';
 }
-
 </style>
