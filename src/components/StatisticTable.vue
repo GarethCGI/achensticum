@@ -14,3 +14,11 @@ const data = computed(() => store.getTable)
 		<DataTable :columns="columns" :data="data" />
 	</div>
 </template>
+
+<style scoped>
+
+	div {
+		font-family: "Sniglet";
+	}
+
+</style>

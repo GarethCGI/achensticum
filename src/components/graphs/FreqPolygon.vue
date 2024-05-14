@@ -44,15 +44,14 @@ const data = computed(() => {
 		datasets: [{
 			label: computed(() => t('table.frequency')).value,
 			data: tableData.value.map((row) => row.frequency),
-
-			backgroundColor: colorMode.value === 'light' ? '#FDE3EA' : '#0E0105',
+			backgroundColor: colorMode.value === 'light' ? '#FD275F' : '#FD275F',
 			borderColor: colorMode.value === 'light' ? '#FD275F' : '#FD275F',
 		}]
 	}
 })
 
 const options = {
-	responsive: true
+	responsive: true,
 }
 
 </script>

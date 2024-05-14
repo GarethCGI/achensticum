@@ -36,7 +36,6 @@ const data = computed(() => {
 		datasets: [{
 			label: computed(() => t('table.frequency')).value,
 			data: tableData.value.map((row) => row.frequency),
-			// Brilliant Purple
 			backgroundColor: colorMode.value === 'light' ? '#FD275F' : '#FD275F',
 		}]
 	}

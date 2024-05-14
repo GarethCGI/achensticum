@@ -68,10 +68,10 @@ const results = computed(() => store.getResultValues)
 	<div class="container grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 		<Card v-for="card in resultCards" :key="card.accessKey" class="flex flex-col text-center">
 			<CardHeader>
-				<CardTitle>{{ card.name.value }}</CardTitle>
+				<CardTitle class="title">{{ card.name.value }}</CardTitle>
 				<!-- <CardDescription>Card Description</CardDescription> -->
 			</CardHeader>
-			<CardContent>
+			<CardContent class="content">
 				{{ results[card.accessKey] }}
 			</CardContent>
 			<!-- <CardFooter>
@@ -80,3 +80,16 @@ const results = computed(() => store.getResultValues)
 		</Card>
 	</div>
 </template>
+
+<style scoped>
+
+	.title {
+		font-family: "WOOJOOAIDP";
+		font-weight: normal;
+	}
+
+	.content {
+		font-family: "Sniglet";
+	}
+
+</style>

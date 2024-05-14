@@ -59,12 +59,12 @@ const add = () => {
 				{{ t('open') }}
 			</Button>
 	</DrawerTrigger>
-    <DrawerContent class="bg-white dark:bg-black">
-      <DrawerHeader class="multifont">
-        <DrawerTitle>
+    <DrawerContent>
+      <DrawerHeader>
+        <DrawerTitle class="title">
 				{{ t('title') }}
 		</DrawerTitle>
-        <DrawerDescription>
+        <DrawerDescription class="description">
 			{{ t('description') }}
 		</DrawerDescription>
       </DrawerHeader>
@@ -88,8 +88,18 @@ const add = () => {
 
 <style scoped>
 
-Button, .multifont {
+Button {
 	font-family: 'Axis';
+}
+
+.title {
+	font-family: 'WOOJOOAIDP';
+	font-size: 1.7rem;
+	font-weight: normal;
+}
+
+.description {
+	font-family: 'Sniglet';
 }
 
 Input {

@@ -111,7 +111,7 @@
 
 @font-face {
 	font-family: "Axis";
-	src: url(/src/assets/fonts/axis.otf);
+	src: url(/src/assets/fonts/axis.otf) format("opentype");
 }
 
 @font-face {
@@ -120,6 +120,11 @@
 }
 
 @font-face {
-	font-family: "Petscop Wide";
-	src: url(/src/assets/fonts/petscopwide.ttf)
+	font-family: "Sniglet";
+	src: url(/src/assets/fonts/sniglet.ttf)
+}
+
+@font-face {
+	font-family: "WOOJOOAIDP";
+	src: url(/src/assets/fonts/woojooaidp.ttf)
 }

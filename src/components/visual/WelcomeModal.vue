@@ -59,10 +59,10 @@ const doClose = () => {
 		</DialogTrigger>
 		<DialogContent class="sm:max-w-[425px]">
 			<DialogHeader>
-				<DialogTitle>
+				<DialogTitle class="title">
 					{{ t('title') }}
 				</DialogTitle>
-				<DialogDescription class="text-muted">
+				<DialogDescription class="description text-muted">
 					{{ t('description') }}
 				</DialogDescription>
 			</DialogHeader>
@@ -77,3 +77,16 @@ const doClose = () => {
 		</DialogContent>
 	</Dialog>
 </template>
+
+<style scoped>
+	.title {
+		font-family: "WOOJOOAIDP";
+		font-size: 2.3rem;
+	}
+
+	.description {
+		font-family: "Sniglet";
+		font-size: 1rem;
+		text-align: justify;
+	}
+</style>

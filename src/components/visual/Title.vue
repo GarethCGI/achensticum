@@ -83,17 +83,17 @@ const { t } = useI18n({
 				<TooltipTrigger></TooltipTrigger>
 				<TooltipContent>
 					<template v-if="position === POSITION.RIGHT">
-						<p>
+						<p class="info">
 							{{ t('achen') }}
 						</p>
 					</template>
 					<template v-else-if="position === POSITION.LEFT">
-						<p>
+						<p class="info">
 							{{ t('sticum') }}
 						</p>
 					</template>
 					<template v-else>
-						<p>
+						<p class="info">
 							{{ t('both') }}
 						</p>
 					</template>
@@ -139,18 +139,18 @@ const { t } = useI18n({
 }
 
 .left-diagonal {
-	transform: translate3d(-10rem, 1.7rem, 0);
+	transform: translate3d(-7rem, 1.7rem, 0);
 }
 
 .right-diagonal {
-	transform: translate3d(10rem, -1.7rem, 0);
+	transform: translate3d(7rem, -1.7rem, 0);
 }
 
 .left-title {
 	position: absolute;
 	right: 0;
 	top: 0;
-	transform: translateX(3.35rem) translateY(-1rem);
+	transform: translateX(0.9rem) translateY(-1rem);
 	z-index: -3;
 }
 
@@ -158,7 +158,7 @@ const { t } = useI18n({
 	position: absolute;
 	left: 0;
 	top: 0;
-	transform: translateX(-3.75rem) translateY(-1rem);
+	transform: translateX(-1.3rem) translateY(-1rem);
 	z-index: -3;
 }
 
@@ -174,7 +174,6 @@ h2 {
 	position: absolute;
 	z-index: -1;
 	transition: all 1ms 1ms;
-	/* opacity: 0.5; */
 }
 
 .mask.left {
@@ -192,5 +191,9 @@ h2 {
 .show-title {
 	z-index: 10;
 	opacity: 1;
+}
+
+.info {
+	font-family: "Sniglet";
 }
 </style>

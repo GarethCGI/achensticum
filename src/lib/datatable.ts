@@ -13,7 +13,7 @@ const getTranslation = (key: string) => {
 export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	{
 		accessorKey: 'interval',
-		header: () => h('div', { class: 'text-right' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
 			getTranslation('interval')
 		),
 		cell: ({ row }) => {
@@ -24,7 +24,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'realLimits',
-		header: () => h('div', { class: 'text-right' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
 			getTranslation('realLimits')
 		),
 		cell: ({ row }) => {
@@ -35,7 +35,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'frequency',
-		header: () => h('div', { class: 'text-right' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
 			getTranslation('frequency')
 		),
 		cell: ({ row }) => {
@@ -46,7 +46,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'relativeFrequency',
-		header: () => h('div', { class: 'text-right' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
 			getTranslation('relativeFrequency')
 		),
 		cell: ({ row }) => {
@@ -57,7 +57,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'acummulatedFrequency',
-		header: () => h('div', { class: 'text-right' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
 			getTranslation('cumulativeFrequency')
 		),
 		cell: ({ row }) => {
@@ -68,7 +68,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'acummulatedRelativeFrequency',
-		header: () => h('div', { class: 'text-right' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
 			getTranslation('cumulativeRelativeFrequency')
 		),
 		cell: ({ row }) => {
@@ -79,7 +79,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'classMark',
-		header: () => h('div', { class: 'text-right' }, 
+		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' }, 
 			getTranslation('classMark')
 		),
 		cell: ({ row }) => {
