@@ -70,7 +70,7 @@ const add = (...values: number[]) => {
 			</div>
 		</div>
 		<div class="space-y-4">
-			<Textarea v-model="input" class="w-full h-48 p-4 text-lg dark:bg-black rounded-lg text-muted"
+			<Textarea v-model="input" class="w-full h-48 p-4 text-lg rounded-lg text-muted"
 				style="resize: none;" :placeholder="t('input')" @keyup="calculate"></Textarea>
 			<div class="flex items-center space-x-4">
 				<MultiAdd @add="add" />

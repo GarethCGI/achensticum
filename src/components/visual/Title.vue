@@ -109,7 +109,7 @@ const { t } = useI18n({
 			'left': position === POSITION.LEFT, 'right': position === POSITION.RIGHT
 		}">
 		</div>
-		<div class="diagonal bg-foreground dark:bg-white"
+		<div class="diagonal bg-foreground"
 			:class="{ 'left-diagonal': position === POSITION.LEFT, 'right-diagonal': position === POSITION.RIGHT }">
 		</div>
 		<h2 class="text-2xl font-bold tracking-tight"
@@ -132,7 +132,7 @@ const { t } = useI18n({
 	width: 0.2rem;
 	height: 3rem;
 	z-index: 50;
-	left: 40%;
+	left: 46%;
 	position: absolute;
 	rotate: 10deg;
 	transition: all 100ms;

@@ -45,8 +45,8 @@ const data = computed(() => {
 			label: computed(() => t('table.frequency')).value,
 			data: tableData.value.map((row) => row.frequency),
 
-			backgroundColor: colorMode.value === 'light' ? '#8A2BE2' : '#8A2BE2',
-			borderColor: colorMode.value === 'light' ? '#8A2BE2' : '#8A2BE2',
+			backgroundColor: colorMode.value === 'light' ? '#FDE3EA' : '#0E0105',
+			borderColor: colorMode.value === 'light' ? '#FD275F' : '#FD275F',
 		}]
 	}
 })
