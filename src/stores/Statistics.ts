@@ -69,9 +69,18 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		return Math.max(...data) - Math.min(...data);
 	})
 
+	const filledRange = computed(() => {
+		// Make RANGE from first to last
+		let vals = []
+		for (let i = Math.min(...initialData.value); i <= Math.max(...initialData.value); i++) {
+			vals.push(i);
+		}
+		return vals;
+	})
+
 	// 1 + 3.33 * log10(n)
 	const intervalQuantity = computed(() => {
-		if (isGroupedMode.value === "ungrouped") return range.value;
+		if (isGroupedMode.value === "ungrouped") return filledRange.value.length;
 		const data = initialData.value;
 		if (data.length === 0) return 0;
 		return Math.ceil(1 + 3.33 * Math.log10(data.length));
@@ -79,6 +88,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 
 	// (LAST - FIRST) / INTERVALS
 	const classWidth = computed(() => {
+		if (isGroupedMode.value === "ungrouped") return 1;
 		const data = initialData.value;
 		if (data.length === 0) return 0;
 		return Math.round(range.value / intervalQuantity.value);
@@ -94,15 +104,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 	*/
 	const limits = computed(() => {
 		if (isGroupedMode.value === "ungrouped") {
-			// Return a value for each element in range
-			let start = Math.min(...initialData.value);
-			const ls: [number, number][] = [];
-			for (let i = 0; i < range.value; i++) {
-				const end = start + 1;
-				ls.push([start, end - 1]);
-				start = end;
-			}
-			return ls;
+			return filledRange.value.map(v => [v, v]);
 		}
 		const ls: [number, number][] = [];
 		let start = Math.min(...initialData.value);
@@ -158,7 +160,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 
 	const getTable = computed(() => {
 
-		if (range.value <= 2) return [];
+		if (range.value <= 1) return [];
 
 		const columns: TableColumn<TableMode>[] = [];
 

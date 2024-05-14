@@ -89,13 +89,13 @@ const groupedMode = computed({
 		<div class="space-y-4">
 			<Textarea v-model="input" class="w-full h-48 p-4 text-lg rounded-lg text-muted" style="resize: none;"
 				:placeholder="t('input')" @keyup="calculate"></Textarea>
+			<CollapsibleSorted />
 			<div class="flex items-center space-x-4">
-				<MultiAdd @add="add" />
 				<Button @click="groupedMode = !groupedMode" variant="outline">{{ t(groupedMode ? 'ungrouped' :
 					'grouped') }}</Button>
 				<Button @click="input = ''" variant="outline">{{ t('clear') }}</Button>
+				<MultiAdd @add="add" />
 			</div>
-			<CollapsibleSorted />
 			<StatisticTable />
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 				<Results />

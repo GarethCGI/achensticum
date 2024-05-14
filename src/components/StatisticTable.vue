@@ -7,7 +7,7 @@ import { useStatisticsStore } from '@/stores/Statistics';
 const store = useStatisticsStore()
 const data = computed(() => store.getTable)
 
-const prunedColumns = computed(() => {
+const shownColumns = computed(() => {
 	if (store.isGrouped == "grouped") {
 		// Remove the third column
 		return columns.filter((_, index) => index !== 2)
@@ -16,13 +16,14 @@ const prunedColumns = computed(() => {
 		// Remove first two columns and last column
 		return columns.filter((_, index) => index > 1 && index < columns.length - 1)
 	}
+	/* return columns */
 })
 
 </script>
 
 <template>
 	<div>
-		<DataTable :columns="prunedColumns" :data="data" />
+		<DataTable :columns="shownColumns" :data="data" />
 	</div>
 </template>
 
