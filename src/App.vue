@@ -1,29 +1,37 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useStatisticsStore } from '@/stores/Statistics';
+import { useI18n } from 'vue-i18n';
+
 import Textarea from './components/ui/textarea/Textarea.vue';
+import Button from './components/ui/button/Button.vue';
 
 import DarkMode from '@/components/DarkMode.vue';
 import LangSelect from '@/components/LangSelect.vue';
-import Title from '@/components/visual/Title.vue';
 import MultiAdd from '@/components/MultiAdd.vue';
 import StatisticTable from '@/components/StatisticTable.vue';
 import Results from '@/components/Results.vue';
+import CollapsibleSorted from '@/components/CollapsibleSorted.vue';
+
 import Histogram from '@/components/graphs/Histogram.vue';
 import FreqPolygon from '@/components/graphs/FreqPolygon.vue';
-import { useI18n } from 'vue-i18n';
-import Button from './components/ui/button/Button.vue';
+
+import Title from '@/components/visual/Title.vue';
 import WelcomeModal from './components/visual/WelcomeModal.vue';
 
 const { t } = useI18n({
 	messages: {
 		es: {
 			input: 'Introduce los datos separados por comas, espacios o saltos de línea.',
-			clear: 'Limpiar'
+			clear: 'Limpiar',
+			grouped: 'Modo agrupado',
+			ungrouped: 'Modo no agrupado'
 		},
 		en: {
 			input: 'Enter the data separated by commas, spaces or line breaks.',
-			clear: 'Clear'
+			clear: 'Clear',
+			grouped: 'Grouped mode',
+			ungrouped: 'Ungrouped mode'
 		}
 	}
 });
@@ -56,6 +64,15 @@ const add = (...values: number[]) => {
 	input.value = parsedInput.value.concat(values).join(', ');
 	calculate();
 }
+
+const groupedMode = computed({
+	get: () => store.isGrouped === "grouped",
+	set: (val) => {
+		store.isGrouped = val ? "grouped" : "ungrouped";
+		calculate();
+	}
+})
+
 </script>
 
 <template>
@@ -70,12 +87,15 @@ const add = (...values: number[]) => {
 			</div>
 		</div>
 		<div class="space-y-4">
-			<Textarea v-model="input" class="w-full h-48 p-4 text-lg rounded-lg text-muted"
-				style="resize: none;" :placeholder="t('input')" @keyup="calculate"></Textarea>
+			<Textarea v-model="input" class="w-full h-48 p-4 text-lg rounded-lg text-muted" style="resize: none;"
+				:placeholder="t('input')" @keyup="calculate"></Textarea>
 			<div class="flex items-center space-x-4">
 				<MultiAdd @add="add" />
+				<Button @click="groupedMode = !groupedMode" variant="outline">{{ t(groupedMode ? 'ungrouped' :
+					'grouped') }}</Button>
 				<Button @click="input = ''" variant="outline">{{ t('clear') }}</Button>
 			</div>
+			<CollapsibleSorted />
 			<StatisticTable />
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 				<Results />

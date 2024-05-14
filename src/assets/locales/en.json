@@ -2,20 +2,11 @@
 	"table": {
 		"interval": "Interval",
 		"realLimits": "Real Limits",
+		"value": "Value",
 		"frequency": "Frequency",
 		"relativeFrequency": "Relative Frequency",
 		"cumulativeFrequency": "Cumulative Frequency",
 		"cumulativeRelativeFrequency": "Cumulative Relative Frequency",
 		"classMark": "Class Mark"
-	},
-	"results": {
-		"median": "Median",
-		"mode": "Mode",
-		"average": "Average",
-		"stdDeviation": "Standard Deviation",
-		"variance": "Variance",
-		"typDeviation": "Typical Deviation",
-		"bias": "Bias",
-		"skewness": "Skewness"
 	}
 }

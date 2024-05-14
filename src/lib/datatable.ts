@@ -34,6 +34,17 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 		},
 	},
 	{
+		accessorKey: 'value',
+		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
+			getTranslation('value')
+		),
+		cell: ({ row }) => {
+			const amount = Number.parseFloat(row.getValue('value'))
+
+			return h('div', { class: 'text-right font-medium' }, amount.toFixed(2))
+		},
+	},
+	{
 		accessorKey: 'frequency',
 		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
 			getTranslation('frequency')
@@ -88,4 +99,4 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 			return h('div', { class: 'text-right font-medium' }, amount.toFixed(2))
 		},
 	}
-]
+] as const;

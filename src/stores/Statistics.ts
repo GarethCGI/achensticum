@@ -29,6 +29,7 @@ export type TableColumn<T extends TableMode> = T extends "ungrouped" ? Ungrouped
 interface ResultValues {
 	median: number;
 	mode: number;
+	modesQuantity: number;
 	average: number;
 
 	stdDeviation: number;
@@ -47,35 +48,62 @@ const testData = [
 	10, 11, 13, 13, 13, 14, 14, 15, 16, 16, 17, 17, 17, 17, 17, 17, 18, 18, 19, 19, 19, 19, 19, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 22, 22, 23, 23, 23, 23, 24, 24, 25, 25, 26, 26, 27, 29
 ]
 
+// TABLEAS function, returns the table asserting that it is the specified type
+function tableAs<T extends TableMode>(table: TableColumn<TableMode>[]): TableColumn<T>[] {
+	return table as TableColumn<T>[];
+}
+
 export const useStatisticsStore = defineStore("statistics", () => {
 	const isGroupedMode = ref<TableMode>("grouped");
-	const initialData = ref<number[]>([
+	const unsortedData = ref<number[]>([
 		...testData
 	]);
+	const initialData = computed(() => {
+		return unsortedData.value.sort((a, b) => a - b);
+	})
 
+	// LAST - FIRST
 	const range = computed(() => {
 		const data = initialData.value;
 		if (data.length === 0) return 0;
 		return Math.max(...data) - Math.min(...data);
 	})
 
+	// 1 + 3.33 * log10(n)
 	const intervalQuantity = computed(() => {
+		if (isGroupedMode.value === "ungrouped") return range.value;
 		const data = initialData.value;
 		if (data.length === 0) return 0;
 		return Math.ceil(1 + 3.33 * Math.log10(data.length));
 	})
 
+	// (LAST - FIRST) / INTERVALS
 	const classWidth = computed(() => {
 		const data = initialData.value;
 		if (data.length === 0) return 0;
 		return Math.round(range.value / intervalQuantity.value);
 	})
 
+	// N
 	const totalFrequency = computed(() => {
 		return initialData.value.length;
 	})
 
+	/*	iterative
+		min + classWidth - 1
+	*/
 	const limits = computed(() => {
+		if (isGroupedMode.value === "ungrouped") {
+			// Return a value for each element in range
+			let start = Math.min(...initialData.value);
+			const ls: [number, number][] = [];
+			for (let i = 0; i < range.value; i++) {
+				const end = start + 1;
+				ls.push([start, end - 1]);
+				start = end;
+			}
+			return ls;
+		}
 		const ls: [number, number][] = [];
 		let start = Math.min(...initialData.value);
 		for (let i = 0; i < intervalQuantity.value; i++) {
@@ -86,6 +114,10 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		return ls;
 	})
 
+	/*	iterative
+		(start + prevEnd) / 2
+		(end + nextStart) / 2
+	*/
 	const realLimits = computed(() => {
 		const rls: [number, number][] = []
 		for (let i = 0; i < limits.value.length; i++) {
@@ -100,6 +132,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		return rls;
 	})
 
+	// F (ABSOLUTE FREQUENCY)
 	const frequencies = computed(() => {
 		const fs: number[] = [];
 		for (let i = 0; i < realLimits.value.length; i++) {
@@ -109,14 +142,19 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		return fs;
 	})
 
+	// FAA FN + ... + F1
 	const accumulatedFrequencies = computed(() => {
 		return frequencies.value.map((_, i) => frequencies.value.slice(0, i + 1).reduce((acc, curr) => acc + curr, 0));
 	})
 
 
 	const setData = (data: number[]) => {
-		initialData.value = data;
+		unsortedData.value = data;
 	}
+
+	const getRawData = computed(() => {
+		return initialData.value;
+	})
 
 	const getTable = computed(() => {
 
@@ -148,6 +186,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 			columns.push({
 				frequency,
 				relativeFrequency,
+				value: classMark,
 				acummulatedFrequency,
 				acummulatedRelativeFrequency,
 				classMark,
@@ -164,6 +203,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		if (tableData.length === 0) return {
 			median: 0,
 			mode: 0,
+			modesQuantity: 0,
 			average: 0,
 			stdDeviation: 0,
 			variance: 0,
@@ -175,21 +215,57 @@ export const useStatisticsStore = defineStore("statistics", () => {
 			kurtosis: 0,
 		} satisfies ResultValues;
 
+		// SUM(FA) / N
 		const average = tableData.map(column => column.fMark).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
 		const median = tableData[Math.floor(tableData.length / 2)].classMark;
-		const mode = tableData.reduce((acc, curr) => acc.frequency > curr.frequency ? acc : curr).classMark;
+
+
+		let mode = 0;
+		let modesQuantity = 0;
+		/* MODE */
+		if (isGroupedMode.value === "ungrouped") {
+			/* just get the highest frequency indexed value */
+			const modeIndex = tableData.map(column => column.frequency).indexOf(Math.max(...tableData.map(column => column.frequency)));
+			mode = tableAs<"ungrouped">(tableData)[modeIndex].value;
+			const modeFreq = tableAs<"ungrouped">(tableData)[modeIndex].frequency;
+			modesQuantity = tableAs<"ungrouped">(tableData).filter(column => column.frequency === modeFreq).length;
+		} else {
+			/*	
+				1. Get the highest frequency index
+				2. Based on index, get inferior Limit (Li)
+				3. Get the frequency of the mode
+				4. Get the difference between the mode frequency and the previous frequency
+				5. Get the difference between the mode frequency and the next frequency
+				6. Calculate the mode
+			*/
+			const modeIndex = tableData.map(column => column.frequency).indexOf(Math.max(...tableData.map(column => column.frequency)));
+			const modeCol = tableAs<"grouped">(tableData)[modeIndex];
+			const modeIndexLi = modeCol.interval[0];
+			const modeFreq = modeCol.frequency;
+			const d1 = modeFreq - tableAs<"grouped">(tableData)[modeIndex - 1]?.frequency || 0;
+			const d2 = modeFreq - tableAs<"grouped">(tableData)[modeIndex + 1]?.frequency || 0;
+			mode = modeIndexLi + (d1 / (d1 + d2)) * classWidth.value;
+			modesQuantity = tableData.filter(column => column.frequency === modeFreq).length;
+		}
+
 		const variance = tableData.map(column => Math.pow(column.classMark - average, 2) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
 		const stdDeviation = Math.sqrt(variance);
 		const typicalDeviation = stdDeviation / average;
 		const quartile = tableData[Math.floor(tableData.length / 4)].classMark;
 		const decile = tableData[Math.floor(tableData.length / 10)].classMark;
 		const percentile = tableData[Math.floor(tableData.length / 100)].classMark;
+		// Bias based on Pearson's Coefficient of Skewness
 		const bias = (average - median) / stdDeviation;
-		const kurtosis = tableData.map(column => Math.pow(column.classMark - average, 4) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
+		/* Kurtosis based on Fisher's Coefficient
+			SUM ( (Xi - X) ^ 4 * Fi ) / N * S^4 
+			-3 is the kurtosis of a normal distribution
+		*/
+		const kurtosis = tableData.map(column => Math.pow(column.classMark - average, 4) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value / Math.pow(stdDeviation, 4) - 3;
 
 		return {
 			median: intoFixed(median, 2),
 			mode: intoFixed(mode, 2),
+			modesQuantity,
 			average: intoFixed(average, 2),
 			stdDeviation: intoFixed(stdDeviation, 2),
 			variance: intoFixed(variance, 2),
@@ -205,6 +281,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 	return {
 		isGrouped: isGroupedMode,
 		setData,
+		getRawData,
 		getTable,
 		getResultValues,
 	}

@@ -17,14 +17,14 @@ const { t } = useI18n({
 	messages: {
 		es: {
 			open: "Acerca de esta aplicación",
-			title: "Bienvenid@!",
+			title: `Bienvenid@!`,
 			description: `Te damos la bienvenida a Achensticum, una aplicación que te permite el cálculo de estadísticas para datos agrupados.
 			Incluyendo medidas de tendencia central, dispersión, sesgo y curtosis.`,
 			ok: "Aceptar",
 		},
 		en: {
 			open: "About this app",
-			title: "Welcome!",
+			title: "Welcome !",
 			description: `Welcome to Achensticum, an application that allows you to calculate statistics for grouped data.
 			Including measures of central tendency, dispersion, bias and kurtosis.`,
 			ok: "Accept",
@@ -79,14 +79,14 @@ const doClose = () => {
 </template>
 
 <style scoped>
-	.title {
-		font-family: "WOOJOOAIDP";
-		font-size: 2.3rem;
-	}
+.title {
+	font-family: "WOOJOOAIDP";
+	font-size: 2.3rem;
+}
 
-	.description {
-		font-family: "Sniglet";
-		font-size: 1rem;
-		text-align: justify;
-	}
+.description {
+	font-family: "Sniglet";
+	font-size: 1rem;
+	text-align: justify;
+}
 </style>
