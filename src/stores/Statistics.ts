@@ -32,7 +32,7 @@ interface ResultValues {
 	modesQuantity: number;
 	average: number;
 
-	stdDeviation: number;
+	meanDeviation: number;
 	variance: number;
 	typicalDeviation: number;
 
@@ -207,7 +207,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 			mode: 0,
 			modesQuantity: 0,
 			average: 0,
-			stdDeviation: 0,
+			meanDeviation: 0,
 			variance: 0,
 			typicalDeviation: 0,
 			quartile: 0,
@@ -250,26 +250,26 @@ export const useStatisticsStore = defineStore("statistics", () => {
 			modesQuantity = tableData.filter(column => column.frequency === modeFreq).length;
 		}
 
+		const meanDeviation = tableData.map(column => Math.abs(column.classMark - average) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
 		const variance = tableData.map(column => Math.pow(column.classMark - average, 2) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
-		const stdDeviation = Math.sqrt(variance);
-		const typicalDeviation = stdDeviation / average;
+		const typicalDeviation = Math.sqrt(variance);
 		const quartile = tableData[Math.floor(tableData.length / 4)].classMark;
 		const decile = tableData[Math.floor(tableData.length / 10)].classMark;
 		const percentile = tableData[Math.floor(tableData.length / 100)].classMark;
 		// Bias based on Pearson's Coefficient of Skewness
-		const bias = (average - median) / stdDeviation;
+		const bias = (average - median) / meanDeviation;
 		/* Kurtosis based on Fisher's Coefficient
 			SUM ( (Xi - X) ^ 4 * Fi ) / N * S^4 
 			-3 is the kurtosis of a normal distribution
 		*/
-		const kurtosis = tableData.map(column => Math.pow(column.classMark - average, 4) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value / Math.pow(stdDeviation, 4) - 3;
+		const kurtosis = tableData.map(column => Math.pow(column.classMark - average, 4) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value / Math.pow(meanDeviation, 4) - 3;
 
 		return {
 			median: intoFixed(median, 2),
 			mode: intoFixed(mode, 2),
 			modesQuantity,
 			average: intoFixed(average, 2),
-			stdDeviation: intoFixed(stdDeviation, 2),
+			meanDeviation: intoFixed(meanDeviation, 2),
 			variance: intoFixed(variance, 2),
 			typicalDeviation: intoFixed(typicalDeviation, 2),
 			quartile: intoFixed(quartile, 2),

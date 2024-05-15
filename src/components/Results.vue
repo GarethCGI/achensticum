@@ -17,7 +17,7 @@ const { t } = useI18n({
 			"mode": "Mode",
 			"multimodal": "Multi\nmodality",
 			"average": "Average",
-			"stdDeviation": "Standard Deviation",
+			"stdDeviation": "Mean Deviation",
 			"variance": "Variance",
 			"typDeviation": "Typical Deviation",
 			"bias": "Bias",
@@ -28,7 +28,7 @@ const { t } = useI18n({
 			"mode": "Moda",
 			"multimodal": "Multi\nmodalidad",
 			"average": "Mediana",
-			"stdDeviation": "Desviación Estándar",
+			"stdDeviation": "Desviación Media",
 			"variance": "Varianza",
 			"typDeviation": "Desviación Típica",
 			"bias": "Sesgo",
@@ -56,7 +56,7 @@ const resultCards = [
 	},
 	{
 		name: computed(() => t('stdDeviation')),
-		accessKey: "stdDeviation",
+		accessKey: "meanDeviation",
 	},
 	{
 		name: computed(() => t('variance')),
