@@ -43,7 +43,7 @@ const shownValues = computed(() => {
 	<Collapsible v-model:open="isOpen">
 		<CollapsibleTrigger>{{ t(isOpen ? "close" : "open") }}</CollapsibleTrigger>
 		<CollapsibleContent class="flex items-center space-x-6">
-			<div>
+			<div class="values">
 				{{ shownValues.join(', ') }}
 			</div>
 			<Toggle :aria-label="t('toggleReverse')" @update:pressed="isReversed = !isReversed">
@@ -52,3 +52,11 @@ const shownValues = computed(() => {
 		</CollapsibleContent>
 	</Collapsible>
 </template>
+
+<style scoped>
+
+.values {
+	font-family: "Sniglet";
+}
+
+</style>
