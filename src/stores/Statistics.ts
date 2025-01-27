@@ -91,7 +91,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		if (isGroupedMode.value === "ungrouped") return 1;
 		const data = initialData.value;
 		if (data.length === 0) return 0;
-		return Math.round(range.value / intervalQuantity.value);
+		return Math.ceil(range.value / intervalQuantity.value);
 	})
 
 	// N
