@@ -4,7 +4,7 @@ import en from '@/assets/locales/en.json'
 
 import { createApp } from "vue";
 import { createPinia } from 'pinia'
-import { createPlugin } from 'tauri-plugin-pinia';
+import { TauriPluginPinia } from 'tauri-plugin-pinia';
 import { createI18n } from 'vue-i18n'
 import App from './App.vue'
 import { useStatisticsStore } from './stores/Statistics';
@@ -12,7 +12,7 @@ import { useStatisticsStore } from './stores/Statistics';
 
 
 const pinia = createPinia()
-pinia.use(createPlugin());
+pinia.use(TauriPluginPinia())
 
 export const i18n = createI18n({
 	legacy: false,
@@ -24,11 +24,11 @@ export const i18n = createI18n({
 	}
 })
 const app = createApp(App)
-
 app.use(pinia)
+/* Persistent store */
+const statisticsStore = useStatisticsStore();
+statisticsStore.$tauri.start();
+
 app.use(i18n)
 app.mount('#app')
 
-
-const statisticsStore = useStatisticsStore();
-statisticsStore.$tauri.start();

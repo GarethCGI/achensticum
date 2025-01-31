@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import iconify from '@tomjs/vite-plugin-iconify';
 import { internalIpV4 } from "internal-ip";
 import tailwind from "tailwindcss"
 import autoprefixer from "autoprefixer"
@@ -14,7 +15,13 @@ export default defineConfig(async () => ({
 			plugins: [tailwind(), autoprefixer()],
 		},
 	},
-	plugins: [vue()],
+	plugins: [vue(),
+		iconify({
+			resources: ['https://unpkg.com/@iconify/json/json'],
+			rotate: 3000,
+			local: ['mdi', 'line-md'],
+		})
+	],
 	resolve: {
 		alias: {
 			"@": path.resolve(__dirname, "./src"),
