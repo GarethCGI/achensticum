@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { saveNow } from 'tauri-plugin-pinia';
 import { computed, ref } from 'vue';
 
 export type TableMode = "ungrouped" | "grouped";
@@ -152,6 +153,8 @@ export const useStatisticsStore = defineStore("statistics", () => {
 
 	const setData = (data: number[]) => {
 		unsortedData.value = data;
+		saveNow("statistics");
+		console.info("Data saved");
 	}
 
 	const getRawData = computed(() => {
@@ -286,6 +289,12 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		getRawData,
 		getTable,
 		getResultValues,
+	}
+},{
+	tauri:{
+		saveOnChange: true,
+		filterKeysStrategy: "pick",
+		filterKeys: ["unsortedData", "isGroupedMode"]
 	}
 })
 

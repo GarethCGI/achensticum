@@ -17,7 +17,7 @@ const { t } = useI18n({
 	messages: {
 		es: {
 			open: "Acerca de esta aplicación",
-			title: `Bienvenid@!`,
+			title: `Bienvenid{'@'}!`,
 			description: `Te damos la bienvenida a Achensticum, una aplicación que te permite el cálculo de estadísticas para datos agrupados.
 			Incluyendo medidas de tendencia central, dispersión, sesgo y curtosis.`,
 			ok: "Aceptar",
