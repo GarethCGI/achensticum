@@ -222,7 +222,9 @@ export const useStatisticsStore = defineStore("statistics", () => {
 
 		// SUM(FA) / N
 		const average = tableData.map(column => column.fMark).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value;
-		const median = tableData[Math.floor(tableData.length / 2)].classMark;
+		const median = tableData.length % 2 ?
+			tableData[Math.floor(tableData.length / 2) - 1].classMark :
+			tableData[Math.floor((tableData.length + 1) / 2) - 1].classMark;
 
 
 		let mode = 0;
@@ -290,8 +292,8 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		getTable,
 		getResultValues,
 	}
-},{
-	tauri:{
+}, {
+	tauri: {
 		saveOnChange: true,
 		filterKeysStrategy: "pick",
 		filterKeys: ["unsortedData", "isGroupedMode"]

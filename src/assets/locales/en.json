@@ -1,11 +1,11 @@
 {
 	"table": {
-		"interval": "Interval",
+		"interval": "Interval (x)",
 		"realLimits": "Real Limits",
 		"value": "Value",
-		"frequency": "Frequency",
+		"frequency": "Frequency (f)",
 		"relativeFrequency": "Relative Frequency",
-		"cumulativeFrequency": "Cumulative Frequency",
+		"cumulativeFrequency": "Cumulative Frequency (F",
 		"cumulativeRelativeFrequency": "Cumulative Relative Frequency",
 		"classMark": "Class Mark"
 	}

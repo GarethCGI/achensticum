@@ -24,10 +24,10 @@ const { t } = useI18n({
 			"skewness": "Skewness"
 		},
 		es: {
-			"median": "Media",
-			"mode": "Moda",
+			"median": "Mediana (Me)", 
+			"mode": "Moda (Mo)",
 			"multimodal": "Multi\nmodalidad",
-			"average": "Mediana",
+			"average": "Media Aritmetica (M')", // Promedio, Media Aritmetica
 			"stdDeviation": "Desviación Media",
 			"variance": "Varianza",
 			"typDeviation": "Desviación Típica",
