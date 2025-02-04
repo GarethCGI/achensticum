@@ -13,7 +13,7 @@ const getTranslation = (key: string) => {
 export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	{
 		accessorKey: 'interval',
-		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "Carter One";' },
 			getTranslation('interval')
 		),
 		cell: ({ row }) => {
@@ -24,7 +24,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'realLimits',
-		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "Carter One";' },
 			getTranslation('realLimits')
 		),
 		cell: ({ row }) => {
@@ -35,7 +35,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'value',
-		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "Carter One";' },
 			getTranslation('value')
 		),
 		cell: ({ row }) => {
@@ -43,10 +43,13 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 
 			return h('div', { class: 'text-right font-medium' }, amount.toFixed(2))
 		},
+		footer() {
+			return h('div', { class: 'text-right font-medium' }, getTranslation('total'), )
+		},
 	},
 	{
 		accessorKey: 'frequency',
-		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "Carter One";' },
 			getTranslation('frequency')
 		),
 		cell: ({ row }) => {
@@ -57,7 +60,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'relativeFrequency',
-		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "Carter One";' },
 			getTranslation('relativeFrequency')
 		),
 		cell: ({ row }) => {
@@ -68,7 +71,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'acummulatedFrequency',
-		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "Carter One";' },
 			getTranslation('cumulativeFrequency')
 		),
 		cell: ({ row }) => {
@@ -79,7 +82,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'acummulatedRelativeFrequency',
-		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' },
+		header: () => h('div', { class: 'text-right', style: 'font-family: "Carter One";' },
 			getTranslation('cumulativeRelativeFrequency')
 		),
 		cell: ({ row }) => {
@@ -90,7 +93,7 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 	},
 	{
 		accessorKey: 'classMark',
-		header: () => h('div', { class: 'text-right', style: 'font-family: "WOOJOOAIDP"; font-size: 1.3rem' }, 
+		header: () => h('div', { class: 'text-right', style: 'font-family: "Carter One";' },
 			getTranslation('classMark')
 		),
 		cell: ({ row }) => {
@@ -98,5 +101,5 @@ export const columns: ColumnDef<TableColumn<TableMode>>[] = [
 
 			return h('div', { class: 'text-right font-medium' }, amount.toFixed(2))
 		},
-	}
+	},
 ] as const;

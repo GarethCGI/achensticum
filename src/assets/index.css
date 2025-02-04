@@ -128,3 +128,13 @@
 	font-family: "WOOJOOAIDP";
 	src: url(/src/assets/fonts/woojooaidp.ttf)
 }
+
+@font-face {
+	font-family: "Genos";
+	src: url(/src/assets/fonts/genos.ttf)
+}
+
+@font-face {
+	font-family: "Chakra Petch";
+	src: url(/src/assets/fonts/chakrapetch.ttf)
+}

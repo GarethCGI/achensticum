@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
+	Drawer,
+	DrawerClose,
+	DrawerContent,
+	DrawerDescription,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerTrigger,
 } from '@/components/ui/drawer'
+import {
+	NumberField,
+	NumberFieldContent,
+	NumberFieldDecrement,
+	NumberFieldIncrement,
+	NumberFieldInput,
+} from '@/components/ui/number-field'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue';
 
@@ -50,44 +57,70 @@ const add = () => {
 	emit('add', ...values)
 }
 
+const setVal = (v: number) => {
+	val.value = v
+}
+const setQty = (v: number) => {
+	qty.value = v
+}
+
 </script>
 
 <template>
-  <Drawer>
-    <DrawerTrigger>
+	<Drawer>
+		<DrawerTrigger>
 			<Button variant="outline">
 				{{ t('open') }}
 			</Button>
-	</DrawerTrigger>
-    <DrawerContent>
-      <DrawerHeader>
-        <DrawerTitle class="title">
-				{{ t('title') }}
-		</DrawerTitle>
-        <DrawerDescription class="description">
-			{{ t('description') }}
-		</DrawerDescription>
-      </DrawerHeader>
-	  <div class="flex flex-col space-y-4 px-4">
-		  <Input :placeholder="t('value')" type="number" v-model="val" />
-		  <Input :placeholder="t('quantity')" type="number" v-model="qty" />
-	  </div>
-      <DrawerFooter class="flex space-x-4 flex-row-reverse">
-        <Button @click="add" variant="outline">
-			{{ t('add') }}
-		</Button>
-        <DrawerClose>
-          <Button variant="outline">
-			{{ t('cancel') }}
-          </Button>
-        </DrawerClose>
-      </DrawerFooter>
-    </DrawerContent>
-  </Drawer>
+		</DrawerTrigger>
+		<DrawerContent>
+			<DrawerHeader>
+				<DrawerTitle class="title">
+					{{ t('title') }}
+				</DrawerTitle>
+				<DrawerDescription class="description">
+					{{ t('description') }}
+				</DrawerDescription>
+			</DrawerHeader>
+			<div class="flex sm:flex-row 
+			sm:space-x-4 sm:space-y-0 sm:justify-center 
+			justify-start
+			flex-col space-y-4 px-4">
+				<!-- <Input :placeholder="t('value')" type="number" v-model="val" />
+				<Input :placeholder="t('quantity')" type="number" v-model="qty" /> -->
+
+				<NumberField id="value" :default-value="0" :min="0" :model-value="val" @update:model-value="setVal">
+					<Label for="value">{{ t('value') }}</Label>
+					<NumberFieldContent>
+						<NumberFieldDecrement />
+						<NumberFieldInput />
+						<NumberFieldIncrement />
+					</NumberFieldContent>
+				</NumberField>
+				<NumberField id="quantity" :default-value="1" :min="0" :model-value="qty" @update:model-value="setQty">
+					<Label for="quantity">{{ t('quantity') }}</Label>
+					<NumberFieldContent>
+						<NumberFieldDecrement />
+						<NumberFieldInput />
+						<NumberFieldIncrement />
+					</NumberFieldContent>
+				</NumberField>
+			</div>
+			<DrawerFooter class="flex space-x-4 flex-row-reverse">
+				<Button @click="add" variant="outline">
+					{{ t('add') }}
+				</Button>
+				<DrawerClose>
+					<Button variant="outline">
+						{{ t('cancel') }}
+					</Button>
+				</DrawerClose>
+			</DrawerFooter>
+		</DrawerContent>
+	</Drawer>
 </template>
 
 <style scoped>
-
 Button {
 	font-family: 'Axis';
 }
@@ -105,5 +138,4 @@ Button {
 Input {
 	font-family: 'Carter One';
 }
-
 </style>

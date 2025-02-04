@@ -28,6 +28,13 @@ export type TableColumn<T extends TableMode> = T extends "ungrouped" ? Ungrouped
 
 
 interface ResultValues {
+	// Pre-computation values
+	totalFrequency: number;
+	range: number;
+	intervals: number;
+	intervalAmplitude: number;
+
+	// Basic Computation
 	median: number;
 	mode: number;
 	modesQuantity: number;
@@ -55,14 +62,17 @@ function tableAs<T extends TableMode>(table: TableColumn<TableMode>[]): TableCol
 }
 
 export const useStatisticsStore = defineStore("statistics", () => {
+	// Configuration
 	const isGroupedMode = ref<TableMode>("grouped");
+	//const isUsingNewrange = ref<boolean>(false);
+	// Data
 	const unsortedData = ref<number[]>([
 		...testData
 	]);
 	const initialData = computed(() => {
 		return unsortedData.value.sort((a, b) => a - b);
 	})
-
+	// Basic Computations
 	// LAST - FIRST
 	const range = computed(() => {
 		const data = initialData.value;
@@ -79,12 +89,12 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		return vals;
 	})
 
-	// 1 + 3.33 * log10(n)
+	// 1 + 3.322 * log10(n)
 	const intervalQuantity = computed(() => {
 		if (isGroupedMode.value === "ungrouped") return filledRange.value.length;
 		const data = initialData.value;
 		if (data.length === 0) return 0;
-		return Math.ceil(1 + 3.33 * Math.log10(data.length));
+		return Math.ceil(1 + 3.322 * Math.log10(data.length));
 	})
 
 	// (LAST - FIRST) / INTERVALS
@@ -205,7 +215,18 @@ export const useStatisticsStore = defineStore("statistics", () => {
 
 	const getResultValues = computed(() => {
 		const tableData = getTable.value;
+
+
+		const _n = totalFrequency.value;
+		const _range = range.value;
+		const _intervals = intervalQuantity.value;
+		const _classWidth = classWidth.value;
+
 		if (tableData.length === 0) return {
+			totalFrequency: 0,
+			range: _range,
+			intervals: _intervals,
+			intervalAmplitude: _classWidth,
 			median: 0,
 			mode: 0,
 			modesQuantity: 0,
@@ -270,6 +291,10 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		const kurtosis = tableData.map(column => Math.pow(column.classMark - average, 4) * column.frequency).reduce((acc, curr) => acc + curr, 0) / totalFrequency.value / Math.pow(meanDeviation, 4) - 3;
 
 		return {
+			totalFrequency: _n,
+			range: intoFixed(_range, 2),
+			intervals: _intervals,
+			intervalAmplitude: intoFixed(_classWidth, 2),
 			median: intoFixed(median, 2),
 			mode: intoFixed(mode, 2),
 			modesQuantity,

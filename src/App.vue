@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStatisticsStore } from '@/stores/Statistics';
 import { useI18n } from 'vue-i18n';
 
@@ -67,12 +67,15 @@ const add = (...values: number[]) => {
 
 const groupedMode = computed({
 	get: () => store.isGrouped === "grouped",
-	set: (val) => {
+	set: (val: any) => {
 		store.isGrouped = val ? "grouped" : "ungrouped";
 		calculate();
 	}
 })
 
+onMounted(() => {
+	input.value = store.getRawData.join(', ');
+});
 </script>
 
 <template>
