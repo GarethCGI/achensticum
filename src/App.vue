@@ -18,6 +18,7 @@ import FreqPolygon from '@/components/graphs/FreqPolygon.vue';
 
 import Title from '@/components/visual/Title.vue';
 import WelcomeModal from './components/visual/WelcomeModal.vue';
+import Configure from './components/Configure.vue';
 
 const { t } = useI18n({
 	messages: {
@@ -36,7 +37,7 @@ const { t } = useI18n({
 	}
 });
 
-const store = useStatisticsStore();
+const statisticsStore = useStatisticsStore();
 
 const input = ref('');
 const parsedInput = ref<number[]>([]);
@@ -57,7 +58,7 @@ const parseInput = () => {
 
 const calculate = () => {
 	parseInput();
-	store.setData(parsedInput.value);
+	statisticsStore.setData(parsedInput.value);
 }
 
 const add = (...values: number[]) => {
@@ -66,15 +67,15 @@ const add = (...values: number[]) => {
 }
 
 const groupedMode = computed({
-	get: () => store.isGrouped === "grouped",
+	get: () => statisticsStore.isGrouped === "grouped",
 	set: (val: any) => {
-		store.isGrouped = val ? "grouped" : "ungrouped";
+		statisticsStore.isGrouped = val ? "grouped" : "ungrouped";
 		calculate();
 	}
 })
 
 onMounted(() => {
-	input.value = store.getRawData.join(', ');
+	input.value = statisticsStore.getRawData.join(', ');
 });
 </script>
 
@@ -98,6 +99,7 @@ onMounted(() => {
 					'grouped') }}</Button>
 				<Button @click="input = ''" variant="outline">{{ t('clear') }}</Button>
 				<MultiAdd @add="add" />
+				<Configure />
 			</div>
 			<StatisticTable />
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

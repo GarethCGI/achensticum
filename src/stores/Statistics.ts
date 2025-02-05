@@ -64,11 +64,9 @@ function tableAs<T extends TableMode>(table: TableColumn<TableMode>[]): TableCol
 export const useStatisticsStore = defineStore("statistics", () => {
 	// Configuration
 	const isGroupedMode = ref<TableMode>("grouped");
-	//const isUsingNewrange = ref<boolean>(false);
+	const isUsingNewrange = ref<boolean>(false);
 	// Data
-	const unsortedData = ref<number[]>([
-		...testData
-	]);
+	const unsortedData = ref<number[]>([]);
 	const initialData = computed(() => {
 		return unsortedData.value.sort((a, b) => a - b);
 	})
@@ -316,12 +314,14 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		getRawData,
 		getTable,
 		getResultValues,
+		isUsingNewrange
 	}
 }, {
 	tauri: {
-		saveOnChange: true,
 		filterKeysStrategy: "pick",
-		filterKeys: ["unsortedData", "isGroupedMode"]
+		filterKeys: [
+
+		]
 	}
 })
 

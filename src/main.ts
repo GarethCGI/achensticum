@@ -7,12 +7,12 @@ import { createPinia } from 'pinia'
 import { TauriPluginPinia } from 'tauri-plugin-pinia';
 import { createI18n } from 'vue-i18n'
 import App from './App.vue'
-import { useStatisticsStore } from './stores/Statistics';
-
-
+import { usePersistentStorage } from './stores/PersistentStorage';
 
 const pinia = createPinia()
-pinia.use(TauriPluginPinia())
+pinia.use(TauriPluginPinia({
+	syncStrategy: "debounce"
+}))
 
 export const i18n = createI18n({
 	legacy: false,
@@ -26,8 +26,8 @@ export const i18n = createI18n({
 const app = createApp(App)
 app.use(pinia)
 /* Persistent store */
-const statisticsStore = useStatisticsStore();
-statisticsStore.$tauri.start();
+const persistentStore = usePersistentStorage();
+persistentStore.$tauri.start();
 
 app.use(i18n)
 app.mount('#app')

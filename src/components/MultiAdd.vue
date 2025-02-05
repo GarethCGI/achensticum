@@ -20,6 +20,8 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue';
+import { Icon } from '@iconify/vue'
+
 
 const { t } = useI18n({
 	messages: {
@@ -70,6 +72,7 @@ const setQty = (v: number) => {
 	<Drawer>
 		<DrawerTrigger>
 			<Button variant="outline">
+				<Icon icon="mdi:plus" width="24" height="24" />
 				{{ t('open') }}
 			</Button>
 		</DrawerTrigger>
@@ -107,8 +110,9 @@ const setQty = (v: number) => {
 				</NumberField>
 			</div>
 			<DrawerFooter class="flex space-x-4 flex-row-reverse">
-				<Button @click="add" variant="outline">
+				<Button @click="add" variant="outline" class="flex justify-center items-center">
 					{{ t('add') }}
+					<Icon icon="mdi:arrow-right" width="24" height="24" />
 				</Button>
 				<DrawerClose>
 					<Button variant="outline">
