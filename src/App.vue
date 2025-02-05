@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import { useStatisticsStore } from '@/stores/Statistics';
+import { onMounted, ref } from 'vue';
+import { ExampleData, useStatisticsStore } from '@/stores/Statistics';
 import { useI18n } from 'vue-i18n';
 
 import Textarea from './components/ui/textarea/Textarea.vue';
 import Button from './components/ui/button/Button.vue';
+import { Icon } from '@iconify/vue';
 
 import DarkMode from '@/components/DarkMode.vue';
 import LangSelect from '@/components/LangSelect.vue';
@@ -19,6 +20,8 @@ import FreqPolygon from '@/components/graphs/FreqPolygon.vue';
 import Title from '@/components/visual/Title.vue';
 import WelcomeModal from './components/visual/WelcomeModal.vue';
 import Configure from './components/Configure.vue';
+import { usePersistentStorage } from './stores/PersistentStorage';
+import { getStoreState } from 'tauri-plugin-pinia';
 
 const { t } = useI18n({
 	messages: {
@@ -38,6 +41,7 @@ const { t } = useI18n({
 });
 
 const statisticsStore = useStatisticsStore();
+const persistentStore = usePersistentStorage();
 
 const input = ref('');
 const parsedInput = ref<number[]>([]);
@@ -59,6 +63,7 @@ const parseInput = () => {
 const calculate = () => {
 	parseInput();
 	statisticsStore.setData(parsedInput.value);
+	persistentStore.lastRawData = parsedInput.value;
 }
 
 const add = (...values: number[]) => {
@@ -66,17 +71,30 @@ const add = (...values: number[]) => {
 	calculate();
 }
 
-const groupedMode = computed({
-	get: () => statisticsStore.isGrouped === "grouped",
-	set: (val: any) => {
-		statisticsStore.isGrouped = val ? "grouped" : "ungrouped";
+const clearInput = () => {
+	input.value = '';
+	calculate();
+}
+
+onMounted(async () => {
+	// Load last autosave
+	if (statisticsStore.getRawData.length >= 1) return;
+	console.debug("Last autosave: ", persistentStore.lastRawData)
+	console.debug("Current data: ", statisticsStore.getRawData)
+	if (persistentStore.lastRawData.length >= 1) {
+		console.debug("Loaded last auto save")
+		input.value = persistentStore.lastRawData.join(', ');
 		calculate();
 	}
-})
+	else {
+		input.value = ExampleData.join(', ');
+		calculate();
+	}
 
-onMounted(() => {
-	input.value = statisticsStore.getRawData.join(', ');
-});
+	getStoreState("persistent").then((state) => {
+		console.debug("Loaded persistent storage", state)
+	})
+})
 </script>
 
 <template>
@@ -85,21 +103,23 @@ onMounted(() => {
 			<div class="flex flex-row items-center justify-center space-x-4 w-full">
 				<Title />
 			</div>
-			<div class="flex flex-row items-center space-x-2">
-				<LangSelect />
-				<DarkMode />
-			</div>
 		</div>
 		<div class="space-y-4">
 			<Textarea v-model="input" class="w-full h-48 p-4 text-lg rounded-lg text-muted" style="resize: none;"
 				:placeholder="t('input')" @keyup="calculate"></Textarea>
 			<CollapsibleSorted />
-			<div class="flex items-center space-x-4">
-				<Button @click="groupedMode = !groupedMode" variant="outline">{{ t(groupedMode ? 'ungrouped' :
-					'grouped') }}</Button>
-				<Button @click="input = ''" variant="outline">{{ t('clear') }}</Button>
-				<MultiAdd @add="add" />
-				<Configure />
+			<div
+				class="grid items-center gap-2 grid-flow-row sm:grid-cols-2 md:grid-cols-3 lg:flex lg:flex-row lg:space-x-4">
+				<Button @click="clearInput" variant="outline" class="flex justify-between col-span-1 w-full">
+					<Icon icon="mdi:broom" class="w-6 h-6" />
+					{{ t('clear') }}
+					<div></div>
+				</Button>
+				<MultiAdd @add="add" class="col-span-1 w-full" />
+				<Configure class="col-span-1 w-full" />
+				<!-- <Button @click="forceSavePersistentStorage" variant="ghost" class="col-span-1 w-full">
+					Save
+				</Button> -->
 			</div>
 			<StatisticTable />
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -110,7 +130,11 @@ onMounted(() => {
 				</div>
 			</div>
 		</div>
-		<div class="w-full flex flex-row-reverse">
+		<div class="w-full flex flex-row justify-between">
+			<div class="flex flex-row items-center space-x-2">
+				<LangSelect />
+				<DarkMode />
+			</div>
 			<WelcomeModal />
 		</div>
 	</div>

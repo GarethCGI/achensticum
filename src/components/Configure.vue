@@ -9,17 +9,9 @@ import {
 	DrawerTitle,
 	DrawerTrigger,
 } from '@/components/ui/drawer'
-import {
-	NumberField,
-	NumberFieldContent,
-	NumberFieldDecrement,
-	NumberFieldIncrement,
-	NumberFieldInput,
-} from '@/components/ui/number-field'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useI18n } from 'vue-i18n'
-import { ref } from 'vue';
 import { Icon } from '@iconify/vue'
 import { Switch } from '@/components/ui/switch'
 import { useStatisticsStore } from '@/stores/Statistics'
@@ -33,7 +25,8 @@ const { t } = useI18n({
 			"description": "Configura la computación",
 			"config": {
 				"newRange": "Nuevo rango",
-				"semiopenRanges": "Rangos Semiabiertos"
+				"semiopenRanges": "Rangos Semiabiertos",
+				"groupedMode": "Modo Agrupado"
 			}
 		},
 		en: {
@@ -44,6 +37,7 @@ const { t } = useI18n({
 			"config": {
 				"newRange": "New range",
 				"semiopenRanges": "Semi-Open Ranges",
+				"groupedMode": "Grouped Mode"
 			}
 		}
 	}
@@ -51,14 +45,25 @@ const { t } = useI18n({
 
 const statisticsStore = useStatisticsStore()
 
+const setNewRange = (value: boolean) => {
+	statisticsStore.isUsingNewrange = value
+}
+const setSemiOpenRanges = (value: boolean) => {
+	statisticsStore.isUsingSemiOpenRanges = value
+}
+const setGroupedMode = (value: boolean) => {
+	statisticsStore.isGroupedMode = value ? 'grouped' : 'ungrouped'
+}
+
 </script>
 
 <template>
 	<Drawer>
 		<DrawerTrigger>
-			<Button variant="outline">
+			<Button variant="outline" class="flex justify-between space-x-2 w-full">
 				<Icon icon="mdi:cog" width="24" height="24" />
 				{{ t('open') }}
+				<div></div>
 			</Button>
 		</DrawerTrigger>
 		<DrawerContent>
@@ -70,19 +75,28 @@ const statisticsStore = useStatisticsStore()
 					{{ t('description') }}
 				</DrawerDescription>
 			</DrawerHeader>
-			<div class="flex sm:flex-row 
-			sm:space-x-4 sm:space-y-0
-			justify-start
-			flex-col space-y-4 px-4">
-				<div class="flex flex-row items-center justify-center gap-x-2">
-					<Switch id="newRange" :value="statisticsStore.isUsingNewrange" />
+			<div class="flex
+			gap-2 px-4
+			flex-col
+			md:flex-row
+			md:justify-start
+			md:items-start
+			">
+				<div class="flex flex-row items-center justify-center gap-x-2 w-fit">
+					<Switch id="groupedMode" :checked="statisticsStore.isGroupedMode === 'grouped'"
+						@update:checked="setGroupedMode" />
+					<Label for="groupedMode">{{ t('config.groupedMode') }}</Label>
+				</div>
+				<div class="flex flex-row items-center justify-center gap-x-2 w-fit">
+					<Switch id="newRange" :checked="statisticsStore.isUsingNewrange" @update:checked="setNewRange"
+						disabled />
 					<Label for="newRange">{{ t('config.newRange') }}</Label>
 				</div>
-				<div class="flex flex-row items-center justify-center gap-x-2">
-					<Switch id="semiOpenRanges" />
+				<div class="flex flex-row items-center justify-center gap-x-2 w-fit">
+					<Switch id="semiOpenRanges" :checked="statisticsStore.isUsingSemiOpenRanges"
+						@update:checked="setSemiOpenRanges" disabled />
 					<Label for="semiOpenRanges">{{ t('config.semiopenRanges') }}</Label>
 				</div>
-
 			</div>
 			<DrawerFooter class="flex space-x-4 flex-row-reverse">
 				<DrawerClose>
@@ -94,3 +108,22 @@ const statisticsStore = useStatisticsStore()
 		</DrawerContent>
 	</Drawer>
 </template>
+<style scoped>
+Button {
+	font-family: 'Axis';
+}
+
+.title {
+	font-family: 'WOOJOOAIDP';
+	font-size: 1.7rem;
+	font-weight: normal;
+}
+
+.description {
+	font-family: 'Sniglet';
+}
+
+Input {
+	font-family: 'Carter One';
+}
+</style>

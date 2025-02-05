@@ -13,6 +13,7 @@ dependencies = [
  "tauri-plugin-fs",
  "tauri-plugin-pinia",
  "tauri-plugin-shell",
+ "tauri-plugin-store",
 ]
 
 [[package]]
@@ -1379,6 +1380,12 @@ dependencies = [
  "http-body",
  "pin-project-lite",
 ]
+
+[[package]]
+name = "http-range"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "21dec9db110f5f872ed9699c3ecf50cf16f423502706ba5c72462e28d3157573"
 
 [[package]]
 name = "httparse"
@@ -3327,6 +3334,7 @@ dependencies = [
  "gtk",
  "heck 0.5.0",
  "http",
+ "http-range",
  "jni",
  "libc",
  "log",
@@ -3465,9 +3473,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-pinia"
-version = "1.1.1"
+version = "1.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b0379917fd8a118208c41b2c4bc31ba3a68c81884bfab606eea627d1b227eab2"
+checksum = "4dc7331190cbc03430b8e1ec71072d5d225bdbb4d560fe1f0d8b219ca8e52ede"
 dependencies = [
  "serde",
  "tauri",
@@ -3495,6 +3503,22 @@ dependencies = [
  "tauri-plugin",
  "thiserror 2.0.11",
  "tokio",
+]
+
+[[package]]
+name = "tauri-plugin-store"
+version = "2.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1c0c08fae6995909f5e9a0da6038273b750221319f2c0f3b526d6de1cde21505"
+dependencies = [
+ "dunce",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-plugin",
+ "thiserror 2.0.11",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]

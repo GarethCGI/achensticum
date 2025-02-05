@@ -52,9 +52,9 @@ interface ResultValues {
 	kurtosis: number;
 }
 
-const testData = [
+export const ExampleData = [
 	10, 11, 13, 13, 13, 14, 14, 15, 16, 16, 17, 17, 17, 17, 17, 17, 18, 18, 19, 19, 19, 19, 19, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 22, 22, 23, 23, 23, 23, 24, 24, 25, 25, 26, 26, 27, 29
-]
+] as const
 
 // TABLEAS function, returns the table asserting that it is the specified type
 function tableAs<T extends TableMode>(table: TableColumn<TableMode>[]): TableColumn<T>[] {
@@ -65,6 +65,7 @@ export const useStatisticsStore = defineStore("statistics", () => {
 	// Configuration
 	const isGroupedMode = ref<TableMode>("grouped");
 	const isUsingNewrange = ref<boolean>(false);
+	const isUsingSemiOpenRanges = ref<boolean>(false);
 	// Data
 	const unsortedData = ref<number[]>([]);
 	const initialData = computed(() => {
@@ -314,7 +315,9 @@ export const useStatisticsStore = defineStore("statistics", () => {
 		getRawData,
 		getTable,
 		getResultValues,
-		isUsingNewrange
+		isGroupedMode,
+		isUsingNewrange,
+		isUsingSemiOpenRanges,
 	}
 }, {
 	tauri: {

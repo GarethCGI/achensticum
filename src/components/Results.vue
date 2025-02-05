@@ -64,7 +64,9 @@ const baseResultCards = [
 	{
 		name: computed(() => t('interval.amplitude')),
 		accessKey: "intervalAmplitude",
-		criteria: () => true,
+		criteria: () => {
+			return results.value.intervalAmplitude !== 1
+		},
 	},
 	{
 		name: computed(() => t('median')),

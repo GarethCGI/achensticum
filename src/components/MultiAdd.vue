@@ -71,9 +71,10 @@ const setQty = (v: number) => {
 <template>
 	<Drawer>
 		<DrawerTrigger>
-			<Button variant="outline">
+			<Button variant="outline" class="flex justify-between space-x-2 w-full">
 				<Icon icon="mdi:plus" width="24" height="24" />
 				{{ t('open') }}
+				<div></div>
 			</Button>
 		</DrawerTrigger>
 		<DrawerContent>

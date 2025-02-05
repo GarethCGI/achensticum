@@ -11,7 +11,9 @@ import { usePersistentStorage } from './stores/PersistentStorage';
 
 const pinia = createPinia()
 pinia.use(TauriPluginPinia({
-	syncStrategy: "debounce"
+	onError: (error) => {
+		console.error(error)
+	}
 }))
 
 export const i18n = createI18n({
@@ -25,10 +27,11 @@ export const i18n = createI18n({
 })
 const app = createApp(App)
 app.use(pinia)
-/* Persistent store */
-const persistentStore = usePersistentStorage();
-persistentStore.$tauri.start();
-
 app.use(i18n)
+/* Persistent store */
+await usePersistentStorage().$tauri.start()
+console.info("Persistent store started")
+
 app.mount('#app')
+
 

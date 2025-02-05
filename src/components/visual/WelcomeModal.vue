@@ -10,8 +10,9 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n'
+import { forceSavePersistentStorage, usePersistentStorage } from '@/stores/PersistentStorage';
 
 const { t } = useI18n({
 	messages: {
@@ -31,7 +32,9 @@ const { t } = useI18n({
 		}
 	}
 })
-const open = ref(true)
+const persisentStorage = usePersistentStorage()
+
+const open = ref(persisentStorage.firstWelcomeDone ? false : true)
 
 const scrollToTop = () => {
 	window.scrollTo({
@@ -46,7 +49,14 @@ const doClose = () => {
 	setTimeout(() => {
 		scrollToTop()
 	}, 200)
+
+	persisentStorage.firstWelcomeDone = true
+	forceSavePersistentStorage()
 }
+
+onMounted(() => {
+	console.debug('First welcome done:', persisentStorage.firstWelcomeDone)
+})
 
 </script>
 
