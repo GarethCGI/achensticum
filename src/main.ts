@@ -29,9 +29,8 @@ const app = createApp(App)
 app.use(pinia)
 app.use(i18n)
 /* Persistent store */
-await usePersistentStorage().$tauri.start()
-console.info("Persistent store started")
+usePersistentStorage().$tauri.start().then(() => {
+	console.info("Persistent store started")
 
-app.mount('#app')
-
-
+	app.mount('#app')
+})
