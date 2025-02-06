@@ -7,7 +7,6 @@ import { createPinia } from 'pinia'
 import { TauriPluginPinia } from 'tauri-plugin-pinia';
 import { createI18n } from 'vue-i18n'
 import App from './App.vue'
-import { usePersistentStorage } from './stores/PersistentStorage';
 
 const pinia = createPinia()
 pinia.use(TauriPluginPinia({
@@ -28,9 +27,4 @@ export const i18n = createI18n({
 const app = createApp(App)
 app.use(pinia)
 app.use(i18n)
-/* Persistent store */
-usePersistentStorage().$tauri.start().then(() => {
-	console.info("Persistent store started")
-
-	app.mount('#app')
-})
+app.mount('#app')
