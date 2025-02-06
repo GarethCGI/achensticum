@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - release
+  workflow_dispatch:
 
 # This workflow will trigger on each push to the `release` branch to create or update a GitHub release, build your app, and upload the artifacts to the release.
 
@@ -50,12 +51,17 @@ jobs:
       - name: install frontend dependencies
         run: npm install # change this to npm, pnpm or bun depending on which one you use.
 
+      ## releasename must be "Beta" if manually dispatched, App if pushed to release branch
+      - name: decide name for release
+        id: releaseName
+        run: echo "::set-output name=releaseName::${{ github.event_name == 'workflow_dispatch' && 'Beta' || 'App' }}"
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: 'App v__VERSION__'
+          tagName: app-v__VERSION__
+          #releaseName: 'App v__VERSION__'
+          releaseName: ${{ steps.releaseName.outputs.releaseName }} v__VERSION__
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
